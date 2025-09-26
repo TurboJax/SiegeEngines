@@ -3,15 +3,15 @@
 [libraries]
 # Core dependencies
 annotations = "org.jetbrains:annotations:26.0.1"
-paper-api = "io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT"
+paper-api = "io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT"
 
 # API dependencies
-colorparser = "com.github.milkdrinkers:colorparser:2.0.3"
-commandapi-shade = "dev.jorel:commandapi-bukkit-shade:10.0.1"
+colorparser = "io.github.milkdrinkers:colorparser:3.0.1"
+commandapi-shade = "dev.jorel:commandapi-bukkit-shade:10.1.2"
 
 [bundles]
 
 [plugins]
-shadow = "com.gradleup.shadow:8.3.5"
+shadow = "com.gradleup.shadow:8.3.8"
 run-paper = "xyz.jpenilla.run-paper:2.3.1"
-plugin-yml = "net.minecrell.plugin-yml.bukkit:0.6.0"
+plugin-yml = "de.eldoria.plugin-yml.bukkit:0.7.1"
