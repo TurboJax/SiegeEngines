@@ -44,9 +44,6 @@ MaxSiegeEnginesControlled: 1
 # Whether the crafting recipes for siege engines are enabled
 CraftingRecipes: true
 
-# The auto-reload feature by shift-clicking
-AutoReload: false
-
 # Worlds where all Siege Engine actions will be disabled including placing and firing
 DisabledWorlds:
   - world_nether
@@ -174,7 +171,6 @@ SiegeEngines:
     ItemName: "&e&lTrebuchet"
     Lore:
       - "&ePlace as a block to spawn a Trebuchet"
-    CanMount: false
   Ballista:
     Health: 5
     ShotAmount: 1
@@ -206,7 +202,6 @@ SiegeEngines:
     ItemName: "&e&lSwivel Cannon"
     Lore:
       - "&ePlace as a block to spawn a Swivel Cannon"
-    CanMount: false
   BreachCannon:
     Health: 25
     ShotAmount: 1
@@ -224,4 +219,3 @@ SiegeEngines:
     ItemName: "&e&lBreach Cannon"
     Lore:
       - "&ePlace as a block to spawn a Breach Cannon"
-    CanMount: false

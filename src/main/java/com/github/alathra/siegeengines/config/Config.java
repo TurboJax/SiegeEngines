@@ -44,7 +44,6 @@ public class Config {
     public static int trebuchetMaxFuel = 3;
     public static Material trebuchetFuelItem = Material.STRING;
     public static double trebuchetHealth = 8d;
-    public static boolean trebuchetCanMount = false;
     public static HashMap<ItemStack, SiegeEngineProjectile> trebuchetProjectiles = new HashMap<>();
     public static String trebuchetItemName = "&e&oTrebuchet";
     public static List<String> trebuchetItemLore;
@@ -54,7 +53,6 @@ public class Config {
     public static double ballistaHealth = 5d;
     public static int ballistaMaxFuel = 4;
     public static Material ballistaFuelItem = Material.STRING;
-    public static boolean ballistaCanMount = false;
     public static HashMap<ItemStack, SiegeEngineProjectile> ballistaProjectiles = new HashMap<>();
     public static String ballistaItemName = "&e&oBallista";
     public static List<String> ballistaItemLore;
@@ -64,7 +62,6 @@ public class Config {
     public static double swivelCannonHealth = 15d;
     public static int swivelCannonMaxFuel = 5;
     public static Material swivelCannonFuelItem = Material.GUNPOWDER;
-    public static boolean swivelCannonCanMount = false;
     public static HashMap<ItemStack, SiegeEngineProjectile> swivelCannonProjectiles = new HashMap<>();
     public static String swivelCannonItemName = "&e&oSwivel Cannon";
     public static List<String> swivelCannonItemLore;
@@ -74,7 +71,6 @@ public class Config {
     public static double breachCannonHealth = 25d;
     public static int breachCannonMaxFuel = 4;
     public static Material breachCannonFuelItem = Material.GUNPOWDER;
-    public static boolean breachCannonCanMount = false;
     public static HashMap<ItemStack, SiegeEngineProjectile> breachCannonProjectiles = new HashMap<>();
     public static String breachCannonItemName = "&e&oBreach Cannon";
     public static List<String> breachCannonItemLore;
@@ -111,7 +107,6 @@ public class Config {
         arrowDamageToggle = config.getBoolean("DisableArrowDamage");
         maxSiegeEnginesControlled = config.getInt("MaxSiegeEnginesControlled");
         doDebug = config.getBoolean("Debug");
-        autoReload = config.getBoolean("AutoReload");
         craftingRecipes = config.getBoolean("CraftingRecipes");
 
         loadProjectilesConfig();
@@ -148,7 +143,6 @@ public class Config {
         ballistaShotAmount = config.getInt("SiegeEngines.Ballista.ShotAmount");
         ballistaVelocityPerFuel = (float) config.getDouble("SiegeEngines.Ballista.VelocityPerFuel");
         ballistaMaxFuel = config.getInt("SiegeEngines.Ballista.MaxFuel");
-        ballistaCanMount = config.getBoolean("SiegeEngines.Ballista.CanMount");
         try {
             ballistaFuelItem = Material.getMaterial(config.getString("SiegeEngines.Ballista.FuelItem"));
         } catch (Exception e) {
@@ -173,7 +167,6 @@ public class Config {
         swivelCannonShotAmount = config.getInt("SiegeEngines.SwivelCannon.ShotAmount");
         swivelCannonVelocityPerFuel = (float) config.getDouble("SiegeEngines.SwivelCannon.VelocityPerFuel");
         swivelCannonMaxFuel = config.getInt("SiegeEngines.SwivelCannon.MaxFuel");
-        swivelCannonCanMount = config.getBoolean("SiegeEngines.SwivelCannon.CanMount");
         try {
             swivelCannonFuelItem = Material.getMaterial(config.getString("SiegeEngines.SwivelCannon.FuelItem"));
         } catch (Exception e) {
@@ -198,7 +191,6 @@ public class Config {
         breachCannonShotAmount = config.getInt("SiegeEngines.BreachCannon.ShotAmount");
         breachCannonVelocityPerFuel = (float) config.getDouble("SiegeEngines.BreachCannon.VelocityPerFuel");
         breachCannonMaxFuel = config.getInt("SiegeEngines.BreachCannon.MaxFuel");
-        breachCannonCanMount = config.getBoolean("SiegeEngines.BreachCannon.CanMount");
         try {
             breachCannonFuelItem = Material.getMaterial(config.getString("SiegeEngines.BreachCannon.FuelItem"));
         } catch (Exception e) {
