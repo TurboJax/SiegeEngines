@@ -329,7 +329,7 @@ public class SiegeEnginesUtil {
             if (equipment.isRotateStandHead()) {
                 stand.setHeadPose(new EulerAngle(loc.getDirection().getY() * (-1), 0, 0));
             }
-            ent.teleport(loc);
+            ent.teleportAsync(loc);
         }
     }
 
@@ -348,7 +348,7 @@ public class SiegeEnginesUtil {
             if (equipment.isRotateStandHead()) {
                 stand.setHeadPose(new EulerAngle(loc.getDirection().getY() * (-1), 0, 0));
             }
-            ent.teleport(loc);
+            ent.teleportAsync(loc);
         }
     }
 
@@ -371,7 +371,7 @@ public class SiegeEnginesUtil {
         }
         loc.setPitch(loc.getPitch() + amount);
 
-        ent.teleport(loc);
+        ent.teleportAsync(loc);
     }
 
     public static boolean pulledHeldAmmoFromPlayer(Player state, SiegeEngine siegeEngine) {

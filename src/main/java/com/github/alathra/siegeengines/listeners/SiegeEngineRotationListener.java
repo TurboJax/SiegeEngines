@@ -76,7 +76,7 @@ public class SiegeEngineRotationListener implements Listener {
 
                                 Location baseloc = base.getLocation();
                                 baseloc.setDirection(dirBetweenLocations);
-                                base.teleport(baseloc);
+                                base.teleportAsync(baseloc);
                             }
                             loc.setDirection(dirBetweenLocations);
                         }
@@ -97,7 +97,7 @@ public class SiegeEngineRotationListener implements Listener {
                             }
                         }
 
-                        living.teleport(loc);
+                        living.teleportAsync(loc);
                         equipment.ShowFireLocation(player);
                     }
                 }
