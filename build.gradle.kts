@@ -25,9 +25,6 @@ repositories {
 }
 
 dependencies {
-    // Core dependencies
-    compileOnly("org.jetbrains:annotations:26.0.1")
-    annotationProcessor("org.jetbrains:annotations:26.0.1")
     compileOnly("dev.folia:folia-api:1.21.11-R0.1-SNAPSHOT")
 
     // API
