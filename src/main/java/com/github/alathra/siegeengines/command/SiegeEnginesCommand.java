@@ -3,7 +3,6 @@ package com.github.alathra.siegeengines.command;
 import com.github.alathra.siegeengines.SiegeEngine;
 import com.github.alathra.siegeengines.config.Config;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import dev.jorel.commandapi.CommandAPIBukkit;
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.ArgumentSuggestions;
@@ -12,6 +11,8 @@ import dev.jorel.commandapi.arguments.StringArgument;
 import dev.jorel.commandapi.exceptions.WrapperCommandSyntaxException;
 import dev.jorel.commandapi.executors.CommandArguments;
 import java.util.List;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -68,9 +69,11 @@ public class SiegeEnginesCommand {
             .executesPlayer(this::onReload);
     }
 
-    private void onGet(CommandSender sender, CommandArguments args) throws WrapperCommandSyntaxException {
-        if (!(args.get("equipmentid") instanceof String equipmentId))
-            throw CommandAPIBukkit.failWithAdventureComponent(Component.text("Invalid SiegeEngine id specified.", NamedTextColor.RED));
+    private void onGet(CommandSender sender, CommandArguments args) {
+        if (!(args.get("equipmentid") instanceof String equipmentId)) {
+            sender.sendMessage(Component.text("Invalid SiegeEngine id specified.", NamedTextColor.RED));
+            return;
+        }
 
         Player player = (Player) args.getOptional("target").orElse(sender);
 
@@ -82,18 +85,23 @@ public class SiegeEnginesCommand {
         }
     }
 
-    private void onGetAll(CommandSender sender, CommandArguments args) throws WrapperCommandSyntaxException {
-        if (!(sender instanceof Player player))
-            throw CommandAPIBukkit.failWithAdventureComponent(Component.text("Only players can use this command.", NamedTextColor.RED));
+    private void onGetAll(CommandSender sender, CommandArguments args) {
+        if (!(sender instanceof Player player)) {
+            sender.sendMessage(Component.text("Only players can use this command.", NamedTextColor.RED));
+            return;
+        }
 
         for (SiegeEngine i : definedSiegeEngines.values()) {
             giveSiegeEngine(player, i);
         }
     }
 
-    private void onReload(CommandSender sender, CommandArguments args) throws WrapperCommandSyntaxException {
-        if (!(sender instanceof Player))
-            throw CommandAPIBukkit.failWithAdventureComponent(Component.text("Only players can use this command.", NamedTextColor.RED));
+    private void onReload(CommandSender sender, CommandArguments args) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(Component.text("Only players can use this command.", NamedTextColor.RED));
+            return;
+        }
+        
         Config.reload();
         activeSiegeEngines.clear();
         siegeEngineEntitiesPerPlayer.clear();
@@ -117,8 +125,9 @@ public class SiegeEnginesCommand {
         CustomModelDataComponent cmd = meta.getCustomModelDataComponent();
         cmd.setFloats(List.of((float) siegeEngine.getReadyModelNumber()));
         meta.setCustomModelDataComponent(cmd);
-        meta.setDisplayName(siegeEngine.getItemName());
-        meta.setLore(siegeEngine.getItemLore());
+        LegacyComponentSerializer lcs = LegacyComponentSerializer.legacySection();
+        meta.displayName(lcs.deserialize(siegeEngine.getItemName()));
+        meta.lore(siegeEngine.getItemLore().stream().map(lcs::deserialize).toList());
         item.setItemMeta(meta);
         player.getInventory().addItem(item);
     }
