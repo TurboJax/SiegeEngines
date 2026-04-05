@@ -3,9 +3,7 @@ import java.time.Instant
 plugins {
     `java-library`
 
-    id("com.gradleup.shadow") version "8.3.8" // Shades and relocates dependencies, see https://gradleup.com/shadow/
     id("xyz.jpenilla.run-paper") version "2.3.1" // Built in test server using runServer and runMojangMappedServer tasks
-    id("de.eldoria.plugin-yml.bukkit") version "0.7.1" // Automatic plugin.yml generation
 
     eclipse
     idea
@@ -38,10 +36,6 @@ dependencies {
 }
 
 tasks {
-    build {
-        dependsOn(shadowJar)
-    }
-
     compileJava {
         options.encoding = Charsets.UTF_8.name()
         options.release.set(21)
@@ -63,19 +57,6 @@ tasks {
         filteringCharset = Charsets.UTF_8.name()
     }
 
-    shadowJar {
-        archiveBaseName.set(project.name)
-        archiveClassifier.set("")
-
-        // Shadow classes
-        fun reloc(originPkg: String, targetPkg: String) = relocate(originPkg, "${mainPackage}.lib.${targetPkg}")
-
-        reloc("dev.jorel.commandapi", "commandapi")
-
-        minimize()
-        exclude("META-INF/**")
-    }
-
     test {
         useJUnitPlatform()
         failFast = false
@@ -93,25 +74,6 @@ tasks {
         // Automatically install dependencies
         downloadPlugins {}
     }
-}
-
-bukkit { // Options: https://github.com/Minecrell/plugin-yml#bukkit
-    // Plugin main class (required)
-    main = "${mainPackage}.${project.name}"
-
-    // Plugin Information
-    name = project.name
-    prefix = project.name
-    version = "${project.version}"
-    description = "${project.description}"
-    authors = listOf("ShermansWorld", "C_Corp2002")
-    contributors = listOf("darksaid98")
-    apiVersion = "1.21"
-
-    // Misc properties
-    load = net.minecrell.pluginyml.bukkit.BukkitPluginDescription.PluginLoadOrder.POSTWORLD // STARTUP or POSTWORLD
-    depend = listOf()
-    softDepend = listOf()
 }
 
 fun applyCustomVersion() {
