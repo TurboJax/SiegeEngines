@@ -74,7 +74,7 @@ public class FireworkProjectile extends SiegeEngineProjectile {
             if (player instanceof org.bukkit.projectiles.ProjectileSource) {
                 firework.setShotAtAngle(true);
                 firework.setShooter((org.bukkit.projectiles.ProjectileSource) player);
-                ItemStack rocketItem = getAmmuinitionItem();
+                ItemStack rocketItem = getAmmunitionItem();
                 if (rocketItem.getItemMeta() instanceof FireworkMeta) {
                     firework.setFireworkMeta((FireworkMeta) rocketItem.getItemMeta());
                 }

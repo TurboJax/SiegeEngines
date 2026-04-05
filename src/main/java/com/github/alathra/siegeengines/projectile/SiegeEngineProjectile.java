@@ -21,7 +21,7 @@ public abstract class SiegeEngineProjectile {
         return projectileType;
     }
 
-    public ItemStack getAmmuinitionItem() {
+    public ItemStack getAmmunitionItem() {
         return ammunitionItem;
     }
 

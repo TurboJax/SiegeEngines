@@ -49,7 +49,7 @@ public class PotionProjectile extends SiegeEngineProjectile {
         }
         arrow.setMetadata("isPotionProj", SiegeEnginesUtil.addMetaDataValue("true"));
         Bukkit.getServer().getPluginManager().callEvent(new org.bukkit.event.entity.ProjectileLaunchEvent(arrow));
-        ItemStack itemStack = this.getAmmuinitionItem();
+        ItemStack itemStack = this.getAmmunitionItem();
         PotionMeta potionMeta = (PotionMeta) itemStack.getItemMeta();
         itemStack.setItemMeta(potionMeta);
         ThrownPotion potion = (ThrownPotion) arrow;

@@ -136,7 +136,7 @@ public class Config {
         }
         for (String projectileName : config.getStringList("SiegeEngines.Trebuchet.Projectiles")) {
             if (projectileMap.containsKey(projectileName)) {
-                trebuchetProjectiles.put(projectileMap.get(projectileName).getAmmuinitionItem(), projectileMap.get(projectileName));
+                trebuchetProjectiles.put(projectileMap.get(projectileName).getAmmunitionItem(), projectileMap.get(projectileName));
             }
         }
         trebuchetItemName = ChatColor.translateAlternateColorCodes('&', config.getString("SiegeEngines.Trebuchet.ItemName"));
@@ -158,7 +158,7 @@ public class Config {
         }
         for (String projectileName : config.getStringList("SiegeEngines.Ballista.Projectiles")) {
             if (projectileMap.containsKey(projectileName)) {
-                ballistaProjectiles.put(projectileMap.get(projectileName).getAmmuinitionItem(), projectileMap.get(projectileName));
+                ballistaProjectiles.put(projectileMap.get(projectileName).getAmmunitionItem(), projectileMap.get(projectileName));
             }
         }
         ballistaItemName = ChatColor.translateAlternateColorCodes('&', config.getString("SiegeEngines.Ballista.ItemName"));
@@ -180,7 +180,7 @@ public class Config {
         }
         for (String projectileName : config.getStringList("SiegeEngines.SwivelCannon.Projectiles")) {
             if (projectileMap.containsKey(projectileName)) {
-                swivelCannonProjectiles.put(projectileMap.get(projectileName).getAmmuinitionItem(), projectileMap.get(projectileName));
+                swivelCannonProjectiles.put(projectileMap.get(projectileName).getAmmunitionItem(), projectileMap.get(projectileName));
             }
         }
         swivelCannonItemName = ChatColor.translateAlternateColorCodes('&', config.getString("SiegeEngines.SwivelCannon.ItemName"));
@@ -202,7 +202,7 @@ public class Config {
         }
         for (String projectileName : config.getStringList("SiegeEngines.BreachCannon.Projectiles")) {
             if (projectileMap.containsKey(projectileName)) {
-                breachCannonProjectiles.put(projectileMap.get(projectileName).getAmmuinitionItem(), projectileMap.get(projectileName));
+                breachCannonProjectiles.put(projectileMap.get(projectileName).getAmmunitionItem(), projectileMap.get(projectileName));
             }
         }
         breachCannonItemName = ChatColor.translateAlternateColorCodes('&', config.getString("SiegeEngines.BreachCannon.ItemName"));
