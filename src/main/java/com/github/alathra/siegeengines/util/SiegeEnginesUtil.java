@@ -253,15 +253,11 @@ public class SiegeEnginesUtil {
 
             if (SiegeEngines.activeSiegeEngines.containsKey(entity.getUniqueId())) {
                 equip = SiegeEngines.activeSiegeEngines.get(entity.getUniqueId());
-                if (equip == null || !equip.getEnabled()) {
-                    return;
-                }
+                if (equip == null || !equip.getEnabled()) return;
             } else {
                 equip = SiegeEnginesUtil.createCloneFromCustomModelData(
                     living.getEquipment().getHelmet().getItemMeta().getCustomModelData());
-                if (equip == null || !equip.getEnabled()) {
-                    return;
-                }
+                if (equip == null || !equip.getEnabled()) return;
                 equip.setAmmoHolder(new SiegeEngineAmmoHolder());
                 equip.setEntity(entity);
                 equip.setEntityId(entity.getUniqueId());

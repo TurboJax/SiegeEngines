@@ -106,64 +106,52 @@ public class SiegeEngineInteractListener implements Listener {
                 }
             }
         }
-        if (entity.getType() == EntityType.RAVAGER || entity.getType() == EntityType.HORSE
-            || entity.getType() == EntityType.DONKEY) {
+        if (entity.getType() == EntityType.RAVAGER || entity.getType() == EntityType.HORSE || entity.getType() == EntityType.DONKEY) {
             if (player.getInventory().getItemInMainHand().getType() == Material.CARVED_PUMPKIN) {
                 final ItemStack item = player.getInventory().getItemInMainHand();
-                if (item.getItemMeta() != null && item.getItemMeta().hasCustomModelData()) {
-                    int customModel = item.getItemMeta().getCustomModelData();
-                    SiegeEngine siegeEngine = null;
-                    // Search for match in custom model data value in defined siege engines
-                    for (SiegeEngine entry : SiegeEngines.definedSiegeEngines.values()) {
+                if (item.getItemMeta() == null) return;
+                if (!item.getItemMeta().hasCustomModelData()) return;
+
+                int customModel = item.getItemMeta().getCustomModelData();
+                SiegeEngine siegeEngine = null;
+                // Search for match in custom model data value in defined siege engines
+                for (SiegeEngine entry : SiegeEngines.definedSiegeEngines.values()) {
+                    try {
                         if (entry.getCustomModelID() == customModel) {
-                            try {
-                                siegeEngine = entry.clone();
-                            } catch (CloneNotSupportedException e) {
-                            }
-                            break;
-                        } else {
+                            siegeEngine = entry.clone();
+                        } else if (entry.getFiringModelNumbers().contains(customModel)) {
                             // if siege engine was broken during one of its firing stages
-                            if (entry.getFiringModelNumbers().contains(customModel)) {
-                                try {
-                                    siegeEngine = entry.clone();
-                                } catch (CloneNotSupportedException e) {
-                                    break;
-                                }
-                            }
+                            siegeEngine = entry.clone();
                         }
+                    } catch (CloneNotSupportedException e) {
+                        break;
                     }
-                    // If SiegeEngine found, place it
-                    if (siegeEngine != null) {
-                        if (!siegeEngine.isMountable()) {
-                            player.sendMessage("§eThis type of Siege Engine cannot be mounted to mobs.");
-                            event.setCancelled(true);
-                            return;
-                        }
-                        if (Config.disabledWorlds.contains(entity.getWorld())) {
-                            player.sendMessage("§eSiege Engines cannot be placed in this World.");
-                            event.setCancelled(true);
-                        }
-                        if (SiegeEnginesData.fluidMaterials.contains(entity.getLocation().getBlock().getType())) {
-                            player.sendMessage("§eSiege Engines cannot be placed in Fluid Blocks.");
-                            event.setCancelled(true);
-                        }
-                        if (event.isCancelled()) {
-                            return;
-                        }
-                        if (siegeEngine.place(player, entity.getLocation(), entity)) {
-                            // If player is in creative mode, don't remove the item from their inventory
-                            if (player.getGameMode() != GameMode.CREATIVE) {
-                                item.setAmount(item.getAmount() - 1);
-                            }
-                            player.getInventory().setItemInMainHand(item);
-                            player.sendMessage(
-                                "§eSiege Engine mounted to the " + entity.getType().toString().toLowerCase() + "!");
-                        } else {
-                            player.sendMessage("§eSiege Engine cannot be placed within a " + Config.placementDensity
-                                + " Block-Radius of other Siege Engines.");
-                        }
+                }
+
+                // If SiegeEngine found, place it
+                if (siegeEngine != null) {
+                    if (!siegeEngine.isMountable()) {
+                        player.sendMessage("§eThis type of Siege Engine cannot be mounted to mobs.");
                         event.setCancelled(true);
                     }
+                    if (Config.disabledWorlds.contains(entity.getWorld())) {
+                        player.sendMessage("§eSiege Engines cannot be placed in this World.");
+                        event.setCancelled(true);
+                    }
+                    if (SiegeEnginesData.fluidMaterials.contains(entity.getLocation().getBlock().getType())) {
+                        player.sendMessage("§eSiege Engines cannot be placed in Fluid Blocks.");
+                        event.setCancelled(true);
+                    }
+                    if (event.isCancelled()) return;
+
+                    if (siegeEngine.place(player, entity.getLocation(), entity)) {
+                        // If player is in creative mode, don't remove the item from their inventory
+                        if (player.getGameMode() == GameMode.SURVIVAL) item.subtract();
+                        player.sendMessage("§eSiege Engine mounted to the " + entity.getType().toString().toLowerCase() + "!");
+                    } else {
+                        player.sendMessage("§eSiege Engine cannot be placed within a " + Config.placementDensity + " Block-Radius of other Siege Engines.");
+                    }
+                    event.setCancelled(true);
                 }
             }
         }
@@ -171,7 +159,6 @@ public class SiegeEngineInteractListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOW)
     public void onSiegeEngineNearClick(PlayerInteractEvent event) {
-
         Player player = event.getPlayer();
         Location eventLocation;
         if (event.getAction() == Action.RIGHT_CLICK_AIR) {

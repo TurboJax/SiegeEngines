@@ -23,7 +23,6 @@ public class SiegeEngineDeathListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onSiegeEngineDeathEvent(EntityDeathEvent event) {
-
         boolean removeStands = false;
         List<ItemStack> items = event.getDrops();
         if (event.getEntity() instanceof ArmorStand) {
@@ -40,19 +39,23 @@ public class SiegeEngineDeathListener implements Listener {
                 removeStands = true;
             } else {
                 for (ItemStack i : items) {
-                    if (i.getType() == Material.CARVED_PUMPKIN && i.hasItemMeta()
-                        && i.getItemMeta().hasCustomModelData()) {
-                        // If siege engine is default model number
-                        if (SiegeEngines.definedSiegeEngines.containsKey(i.getItemMeta().getCustomModelData())) {
+                    if (i.getType() != Material.CARVED_PUMPKIN) continue;
+                    if (!i.hasItemMeta()) continue;
+                    if (!i.hasItemMeta().hasCustomModelData()) continue;
+
+                    int data = i.getItemMeta().getCustomModelData();
+
+                    // If siege engine is default model number
+                    if (SiegeEngines.definedSiegeEngines.containsKey(data)) {
+                        removeStands = true;
+                        break;
+                    }
+
+                    // If siege engine is some other model number because it was broken in the middle of firing
+                    for (SiegeEngine siegeEngine : SiegeEngines.definedSiegeEngines.values()) {
+                        if (siegeEngine.getFiringModelNumbers().contains(data)) {
                             removeStands = true;
                             break;
-                        }
-                        // If siege engine is some other model number because it was broken in the middle of firing
-                        for (SiegeEngine siegeEngine : SiegeEngines.definedSiegeEngines.values()) {
-                            if (siegeEngine.getFiringModelNumbers().contains(i.getItemMeta().getCustomModelData())) {
-                                removeStands = true;
-                                break;
-                            }
                         }
                     }
                 }

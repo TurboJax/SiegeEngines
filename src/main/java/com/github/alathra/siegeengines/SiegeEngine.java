@@ -240,12 +240,9 @@ public class SiegeEngine implements Cloneable {
     }
 
     public void Fire(Entity player, float delay, Integer amount) {
-        if (amount == null || amount == 0)
-            amount = this.getShotAmount();
+        if (amount == null || amount == 0) amount = this.getShotAmount();
         this.setShotAmount(amount);
-        if (System.currentTimeMillis() < nextShotTime) {
-            return;
-        }
+        if (System.currentTimeMillis() < nextShotTime) return;
         if (getAmmoHolder().getLoadedFuel() <= 0)
             getAmmoHolder().setLoadedFuel(0);
         float loadedFuel = getAmmoHolder().getLoadedFuel();
@@ -299,7 +296,7 @@ public class SiegeEngine implements Cloneable {
                             Bukkit.getServer().getScheduler().cancelTask(taskNumber);
                             return;
                         }
-                        //	player.sendMessage("§etask");
+
                         if (hasReloaded) {
                             Bukkit.getServer().getScheduler().cancelTask(taskNumber);
                             hasReloaded = false;
