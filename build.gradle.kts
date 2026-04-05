@@ -25,9 +25,7 @@ repositories {
 
 dependencies {
     compileOnly("dev.folia:folia-api:1.21.11-R0.1-SNAPSHOT")
-
-    // API
-    implementation("dev.jorel:commandapi-bukkit-shade:10.1.2")
+    compileOnly("dev.jorel:commandapi-paper-core:11.2.0")
 }
 
 tasks {
