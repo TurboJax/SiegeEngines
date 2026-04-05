@@ -34,11 +34,6 @@ dependencies {
     compileOnly("dev.folia:folia-api:1.21.11-R0.1-SNAPSHOT")
 
     // API
-    implementation("io.github.milkdrinkers:colorparser:3.0.1") {
-        exclude("org.intellij.lang.annotations")
-        exclude("org.jetbrains.lang.annotations")
-        exclude("net.kyori")
-    }
     implementation("dev.jorel:commandapi-bukkit-shade:10.1.2")
 }
 
@@ -75,7 +70,6 @@ tasks {
         // Shadow classes
         fun reloc(originPkg: String, targetPkg: String) = relocate(originPkg, "${mainPackage}.lib.${targetPkg}")
 
-        reloc("com.github.milkdrinkers.colorparser", "colorparser")
         reloc("dev.jorel.commandapi", "commandapi")
 
         minimize()
