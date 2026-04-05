@@ -2,7 +2,8 @@ package com.github.alathra.siegeengines.command;
 
 import com.github.alathra.siegeengines.SiegeEngine;
 import com.github.alathra.siegeengines.config.Config;
-import io.github.milkdrinkers.colorparser.ColorParser;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import dev.jorel.commandapi.CommandAPIBukkit;
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.ArgumentSuggestions;
@@ -34,7 +35,7 @@ public class SiegeEnginesCommand {
     }
 
     private void onExecute(CommandSender sender, CommandArguments args) {
-        sender.sendMessage(ColorParser.of("<yellow>Incorrect usage, /siegeengines get, /siegeengines getAll, /siegeengines reload").build());
+        sender.sendMessage(Component.text("Incorrect usage, /siegeengines get, /siegeengines getAll, /siegeengines reload", NamedTextColor.YELLOW));
     }
 
     private CommandAPICommand commandGet() {
@@ -67,7 +68,7 @@ public class SiegeEnginesCommand {
 
     private void onGet(CommandSender sender, CommandArguments args) throws WrapperCommandSyntaxException {
         if (!(args.get("equipmentid") instanceof String equipmentId))
-            throw CommandAPIBukkit.failWithAdventureComponent(ColorParser.of("<red>Invalid SiegeEngine id specified.").build());
+            throw CommandAPIBukkit.failWithAdventureComponent(Component.text("Invalid SiegeEngine id specified.", NamedTextColor.RED));
 
         Player player = (Player) args.getOptional("target").orElse(sender);
 
@@ -81,7 +82,7 @@ public class SiegeEnginesCommand {
 
     private void onGetAll(CommandSender sender, CommandArguments args) throws WrapperCommandSyntaxException {
         if (!(sender instanceof Player player))
-            throw CommandAPIBukkit.failWithAdventureComponent(ColorParser.of("<red>Only players can use this command.").build());
+            throw CommandAPIBukkit.failWithAdventureComponent(Component.text("Only players can use this command.", NamedTextColor.RED));
 
         for (SiegeEngine i : definedSiegeEngines.values()) {
             giveSiegeEngine(player, i);
@@ -90,7 +91,7 @@ public class SiegeEnginesCommand {
 
     private void onReload(CommandSender sender, CommandArguments args) throws WrapperCommandSyntaxException {
         if (!(sender instanceof Player))
-            throw CommandAPIBukkit.failWithAdventureComponent(ColorParser.of("<red>Only players can use this command.").build());
+            throw CommandAPIBukkit.failWithAdventureComponent(Component.text("Only players can use this command.", NamedTextColor.RED));
         Config.reload();
         activeSiegeEngines.clear();
         siegeEngineEntitiesPerPlayer.clear();
@@ -98,14 +99,14 @@ public class SiegeEnginesCommand {
         addDefaults();
         for (SiegeEngine i : definedSiegeEngines.values()) {
             if (Config.doDebug) {
-                sender.sendMessage(ColorParser.of("<yellow>Enabled SiegeEngine : %s".formatted(i.getEngineName())).build());
-                sender.sendMessage(ColorParser.of("<yellow>SiegeEngine Propellant/\"Fuel\" ItemStacks : %s".formatted(i.getFuelItem())).build());
+                sender.sendMessage(Component.text("Enabled SiegeEngine : " + i.getEngineName(), NamedTextColor.YELLOW));
+                sender.sendMessage(Component.text("SiegeEngine Propellant/\"Fuel\" ItemStacks : " + i.getFuelItem().toString(), NamedTextColor.YELLOW));
                 for (ItemStack proj : i.getProjectiles().keySet()) {
-                    sender.sendMessage(ColorParser.of("<yellow>SiegeEngine Projectile ItemStacks : %s".formatted(proj)).build());
+                    sender.sendMessage(Component.text("SiegeEngine Projectile ItemStacks : " + proj.toString(), NamedTextColor.YELLOW));
                 }
             }
         }
-        sender.sendMessage(ColorParser.of("<yellow>SiegeEngine configs reloaded").build());
+        sender.sendMessage(Component.text("SiegeEngine configs reloaded", NamedTextColor.YELLOW));
     }
 
     private void giveSiegeEngine(Player player, SiegeEngine siegeEngine) {
