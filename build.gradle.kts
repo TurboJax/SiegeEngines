@@ -21,7 +21,6 @@ repositories {
     mavenCentral()
 
     maven("https://repo.papermc.io/repository/maven-public/")
-    maven("https://maven.athyrium.eu/releases")
 }
 
 dependencies {
