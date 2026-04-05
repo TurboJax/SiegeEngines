@@ -3,10 +3,9 @@ package com.github.alathra.siegeengines.command;
 import com.github.alathra.siegeengines.SiegeEngine;
 import com.github.alathra.siegeengines.config.Config;
 import net.kyori.adventure.text.Component;
-import dev.jorel.commandapi.CommandAPIBukkit;
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.ArgumentSuggestions;
-import dev.jorel.commandapi.arguments.PlayerArgument;
+import dev.jorel.commandapi.arguments.EntitySelectorArgument;
 import dev.jorel.commandapi.arguments.StringArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
 import java.util.List;
@@ -50,7 +49,7 @@ public class SiegeEnginesCommand {
                             definedSiegeEngines.values().stream().map(SiegeEngine::getId).toList()
                         )
                     ),
-                new PlayerArgument("target")
+                new EntitySelectorArgument.OnePlayer("target")
                     .setOptional(true)
             )
             .executesPlayer(this::onGet);
