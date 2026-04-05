@@ -1,6 +1,6 @@
 package com.github.alathra.siegeengines;
 
-import com.github.alathra.siegeengines.command.CommandHandler;
+import com.github.alathra.siegeengines.command.SiegeEnginesCommand;
 import com.github.alathra.siegeengines.config.Config;
 import com.github.alathra.siegeengines.data.SiegeEnginesData;
 import com.github.alathra.siegeengines.listeners.*;
@@ -15,8 +15,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.*;
 
 public class SiegeEngines extends JavaPlugin {
-
-    private CommandHandler commandHandler;
 
     public static SiegeEngines instance;
     public static final Random random = new Random();
@@ -34,13 +32,14 @@ public class SiegeEngines extends JavaPlugin {
 
     @Override
     public void onLoad() {
-        commandHandler = new CommandHandler(this);
-        commandHandler.onLoad();
         instance = this;
     }
 
     @Override
     public void onEnable() {
+        // Registering the commands
+        new SiegeEnginesCommand();
+
         this.saveDefaultConfig();
         Config.reload();
         activeSiegeEngines.clear();
@@ -65,13 +64,11 @@ public class SiegeEngines extends JavaPlugin {
                 }
             }
         }
-        commandHandler.onEnable();
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public void onDisable() {
-        commandHandler.onDisable();
         for (SiegeEngine siegeEngine : activeSiegeEngines.values()) {
             if (siegeEngine.getEntity() != null) {
                 ItemStack item = new ItemStack(Material.CARVED_PUMPKIN);
