@@ -47,6 +47,7 @@ public class Config {
     public static HashMap<ItemStack, SiegeEngineProjectile> trebuchetProjectiles = new HashMap<>();
     public static String trebuchetItemName = "&e&oTrebuchet";
     public static List<String> trebuchetItemLore;
+    public static boolean trebuchetCanMount;
 
     public static int ballistaShotAmount = 1;
     public static float ballistaVelocityPerFuel = 0.925f;
@@ -56,6 +57,7 @@ public class Config {
     public static HashMap<ItemStack, SiegeEngineProjectile> ballistaProjectiles = new HashMap<>();
     public static String ballistaItemName = "&e&oBallista";
     public static List<String> ballistaItemLore;
+    public static boolean ballistaCanMount;
 
     public static int swivelCannonShotAmount = 1;
     public static float swivelCannonVelocityPerFuel = 1.0125f;
@@ -65,6 +67,7 @@ public class Config {
     public static HashMap<ItemStack, SiegeEngineProjectile> swivelCannonProjectiles = new HashMap<>();
     public static String swivelCannonItemName = "&e&oSwivel Cannon";
     public static List<String> swivelCannonItemLore;
+    public static boolean swivelCannonCanMount;
 
     public static int breachCannonShotAmount = 1;
     public static float breachCannonVelocityPerFuel = 1.075f;
@@ -74,6 +77,7 @@ public class Config {
     public static HashMap<ItemStack, SiegeEngineProjectile> breachCannonProjectiles = new HashMap<>();
     public static String breachCannonItemName = "&e&oBreach Cannon";
     public static List<String> breachCannonItemLore;
+    public static boolean breachCannonCanMount;
 
     // Projectiles
 
@@ -136,6 +140,7 @@ public class Config {
             config.getString("SiegeEngines.Trebuchet.ItemName"));
         trebuchetItemLore = config.getStringList("SiegeEngines.Trebuchet.Lore");
         trebuchetItemLore.replaceAll(textToTranslate -> ChatColor.translateAlternateColorCodes('&', textToTranslate));
+        trebuchetCanMount = config.getBoolean("SiegeEngines.Trebuchet.CanMount");
     }
 
     private static void loadBallistaValues() {
@@ -160,6 +165,7 @@ public class Config {
             config.getString("SiegeEngines.Ballista.ItemName"));
         ballistaItemLore = config.getStringList("SiegeEngines.Ballista.Lore");
         ballistaItemLore.replaceAll(textToTranslate -> ChatColor.translateAlternateColorCodes('&', textToTranslate));
+        ballistaCanMount = config.getBoolean("SiegeEngines.Ballista.CanMount");
     }
 
     private static void loadSwivelCannonValues() {
@@ -184,6 +190,7 @@ public class Config {
             config.getString("SiegeEngines.SwivelCannon.ItemName"));
         swivelCannonItemLore = config.getStringList("SiegeEngines.SwivelCannon.Lore");
         swivelCannonItemLore.replaceAll(textToTranslate -> ChatColor.translateAlternateColorCodes('&', textToTranslate));
+        swivelCannonCanMount = config.getBoolean("SiegeEngines.SwivelCannon.CanMount");
     }
 
     private static void loadBreachCannonValues() {
@@ -208,6 +215,7 @@ public class Config {
             config.getString("SiegeEngines.BreachCannon.ItemName"));
         breachCannonItemLore = config.getStringList("SiegeEngines.BreachCannon.Lore");
         breachCannonItemLore.replaceAll(textToTranslate -> ChatColor.translateAlternateColorCodes('&', textToTranslate));
+        breachCannonCanMount = config.getBoolean("SiegeEngines.BreachCannon.CanMount");
     }
 
     private static void loadSiegeEngineConfig() {

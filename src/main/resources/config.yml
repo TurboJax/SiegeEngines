@@ -171,6 +171,7 @@ SiegeEngines:
     ItemName: "&e&lTrebuchet"
     Lore:
       - "&ePlace as a block to spawn a Trebuchet"
+    CanMount: false
   Ballista:
     Health: 5
     ShotAmount: 1
@@ -202,6 +203,7 @@ SiegeEngines:
     ItemName: "&e&lSwivel Cannon"
     Lore:
       - "&ePlace as a block to spawn a Swivel Cannon"
+    CanMount: false
   BreachCannon:
     Health: 25
     ShotAmount: 1
@@ -219,3 +221,4 @@ SiegeEngines:
     ItemName: "&e&lBreach Cannon"
     Lore:
       - "&ePlace as a block to spawn a Breach Cannon"
+    CanMount: false
