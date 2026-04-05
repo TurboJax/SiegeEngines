@@ -6,6 +6,8 @@ import com.github.alathra.siegeengines.crafting.CraftingRecipes;
 import com.github.alathra.siegeengines.data.SiegeEnginesData;
 import com.github.alathra.siegeengines.projectile.*;
 import com.github.alathra.siegeengines.util.SiegeEnginesUtil;
+import io.papermc.paper.registry.RegistryAccess;
+import io.papermc.paper.registry.RegistryKey;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -13,7 +15,7 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
@@ -249,7 +251,7 @@ public class Config {
                         explosiveProjectile.explodePower = (float) config.getDouble("Projectiles." + projectileName + ".ExplodePower");
                         explosiveProjectile.inaccuracy = (float) config.getDouble("Projectiles." + projectileName + ".Inaccuracy");
                         explosiveProjectile.projectilesCount = config.getInt("Projectiles." + projectileName + ".ProjectileCount");
-                        explosiveProjectile.soundType = Sound.valueOf(config.getString("Projectiles." + projectileName + ".FireSound"));
+                        explosiveProjectile.soundType = RegistryAccess.registryAccess().getRegistry(RegistryKey.SOUND_EVENT).get(NamespacedKey.minecraft(config.getString("Projectiles." + projectileName + ".FireSound").toLowerCase()));
                         explosiveProjectile.velocityFactor = (float) config.getDouble("Projectiles." + projectileName + ".VelocityFactor");
                         projectileMap.put(projectileName, explosiveProjectile);
                         break;
@@ -258,7 +260,7 @@ public class Config {
                         entityProjectile.inaccuracy = (float) config.getDouble("Projectiles." + projectileName + ".Inaccuracy");
                         entityProjectile.projectileCount = config.getInt("Projectiles." + projectileName + ".ProjectileCount");
                         entityProjectile.entityType = EntityType.valueOf(config.getString("Projectiles." + projectileName + ".EntityType"));
-                        entityProjectile.soundType = Sound.valueOf(config.getString("Projectiles." + projectileName + ".FireSound"));
+                        entityProjectile.soundType = RegistryAccess.registryAccess().getRegistry(RegistryKey.SOUND_EVENT).get(NamespacedKey.minecraft(config.getString("Projectiles." + projectileName + ".FireSound").toLowerCase()));
                         entityProjectile.velocityFactor = (float) config.getDouble("Projectiles." + projectileName + ".VelocityFactor");
                         if (entityProjectile.entityType.equals(EntityType.ARROW)) {
                             entityProjectile.arrowDamageFactor = (float) config.getDouble("Projectiles." + projectileName + ".ArrowDamageFactor");
