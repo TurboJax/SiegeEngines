@@ -476,7 +476,7 @@ public class SiegeEnginesUtil {
                         if (inventoryItem.getAmount() - 1 > 0) {
                             inventoryItem.setAmount(inventoryItem.getAmount() - 1);
                         } else {
-                            inventoryItem.setType(Material.AIR);
+                            inventoryItem.withType(Material.AIR);
                             inventoryItem.setAmount(0);
                         }
                         return true;
@@ -488,7 +488,7 @@ public class SiegeEnginesUtil {
                         if (inventoryItem.getAmount() - 1 > 0) {
                             inventoryItem.setAmount(inventoryItem.getAmount() - 1);
                         } else {
-                            inventoryItem.setType(Material.AIR);
+                            inventoryItem.withType(Material.AIR);
                             inventoryItem.setAmount(0);
                         }
                         FireworkProjectile proj = FireworkProjectile.getDefaultRocketShot(inventoryItem.clone());

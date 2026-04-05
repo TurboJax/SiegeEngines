@@ -3,7 +3,6 @@ package com.github.alathra.siegeengines.listeners;
 import com.github.alathra.siegeengines.SiegeEngine;
 import com.github.alathra.siegeengines.SiegeEngines;
 import com.github.alathra.siegeengines.config.Config;
-import com.github.alathra.siegeengines.util.SiegeEnginesUtil;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -76,7 +76,7 @@ public class SiegeEngineRotationListener implements Listener {
 
                                 Location baseloc = base.getLocation();
                                 baseloc.setDirection(dirBetweenLocations);
-                                base.teleport(baseloc, io.papermc.paper.entity.TeleportFlag.EntityState.values());
+                                base.teleport(baseloc);
                             }
                             loc.setDirection(dirBetweenLocations);
                         }
@@ -97,8 +97,7 @@ public class SiegeEngineRotationListener implements Listener {
                             }
                         }
 
-
-                        living.teleport(loc, io.papermc.paper.entity.TeleportFlag.EntityState.values());
+                        living.teleport(loc);
                         equipment.ShowFireLocation(player);
                     }
                 }

@@ -48,7 +48,7 @@ public class GeneralUtil {
             if (content.isSimilar(m)) {
                 int amountInInv = content.getAmount();
                 if (toRemove >= amountInInv) {
-                    content.setType(Material.AIR);
+                    content.withType(Material.AIR);
                     toRemove -= amountInInv;
                 } else {
                     content.setAmount(amountInInv - toRemove);

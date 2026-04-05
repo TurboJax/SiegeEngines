@@ -89,7 +89,7 @@ public class SiegeEngine implements Cloneable {
 
         // Set Default values
         setType(SiegeEngineType.UNKNOWN);
-        setItemName(ChatColor.translateAlternateColorCodes('&', "&eUnknown Siege Engine"));
+        setItemName("§eUnknown Siege Engine");
         setItemLore(new ArrayList<>());
         setXOffset(0);
         setYOffset(0);

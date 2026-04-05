@@ -10,7 +10,6 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.metadata.MetadataValueAdapter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
@@ -20,7 +19,6 @@ public class SiegeEngines extends JavaPlugin {
     private CommandHandler commandHandler;
 
     public static SiegeEngines instance;
-    public static MetadataValueAdapter metadata;
     public static final Random random = new Random();
 
     // model id, defined siege engine types
@@ -97,6 +95,7 @@ public class SiegeEngines extends JavaPlugin {
                         meta.setDisplayName(Config.breachCannonItemName);
                         meta.setLore(Config.ballistaItemLore);
                         break;
+                    default: {}
                 }
                 item.setItemMeta(meta);
 
