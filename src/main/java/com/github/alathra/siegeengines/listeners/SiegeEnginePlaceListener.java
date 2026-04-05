@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.components.CustomModelDataComponent;
 
 public class SiegeEnginePlaceListener implements Listener {
 
@@ -26,9 +27,11 @@ public class SiegeEnginePlaceListener implements Listener {
 
         if (item == null) return;
         if (item.getItemMeta() == null) return;
-        if (!item.getItemMeta().hasCustomModelData()) return;
 
-        int customModel = item.getItemMeta().getCustomModelData();
+        CustomModelDataComponent cmd = item.getItemMeta().getCustomModelDataComponent();
+        if (cmd.getFloats().size() != 1) return;
+
+        int customModel = cmd.getFloats().get(0).intValue();
         SiegeEngine siegeEngine = null;
         // Search for match in custom model data value in defined siege engines
         for (SiegeEngine entry : SiegeEngines.definedSiegeEngines.values()) {

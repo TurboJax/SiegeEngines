@@ -14,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.components.CustomModelDataComponent;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.List;
@@ -41,9 +42,10 @@ public class SiegeEngineDeathListener implements Listener {
                 for (ItemStack i : items) {
                     if (i.getType() != Material.CARVED_PUMPKIN) continue;
                     if (!i.hasItemMeta()) continue;
-                    if (!i.hasItemMeta().hasCustomModelData()) continue;
 
-                    int data = i.getItemMeta().getCustomModelData();
+                    CustomModelDataComponent cmd = i.getItemMeta().getCustomModelDataComponent();
+                    if (cmd.getFloats().size() != 1) continue;
+                    int data = cmd.getFloats().get(0).intValue();
 
                     // If siege engine is default model number
                     if (SiegeEngines.definedSiegeEngines.containsKey(data)) {

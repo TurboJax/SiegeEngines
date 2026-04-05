@@ -11,11 +11,13 @@ import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.arguments.StringArgument;
 import dev.jorel.commandapi.exceptions.WrapperCommandSyntaxException;
 import dev.jorel.commandapi.executors.CommandArguments;
+import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.components.CustomModelDataComponent;
 
 import static com.github.alathra.siegeengines.SiegeEngines.*;
 
@@ -112,7 +114,9 @@ public class SiegeEnginesCommand {
     private void giveSiegeEngine(Player player, SiegeEngine siegeEngine) {
         ItemStack item = new ItemStack(Material.CARVED_PUMPKIN);
         ItemMeta meta = item.getItemMeta();
-        meta.setCustomModelData(siegeEngine.getReadyModelNumber());
+        CustomModelDataComponent cmd = meta.getCustomModelDataComponent();
+        cmd.setFloats(List.of((float) siegeEngine.getReadyModelNumber()));
+        meta.setCustomModelDataComponent(cmd);
         meta.setDisplayName(siegeEngine.getItemName());
         meta.setLore(siegeEngine.getItemLore());
         item.setItemMeta(meta);

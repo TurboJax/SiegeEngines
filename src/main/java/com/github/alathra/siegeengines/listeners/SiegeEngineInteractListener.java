@@ -18,6 +18,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.components.CustomModelDataComponent;
 
 public class SiegeEngineInteractListener implements Listener {
 
@@ -110,9 +111,11 @@ public class SiegeEngineInteractListener implements Listener {
             if (player.getInventory().getItemInMainHand().getType() == Material.CARVED_PUMPKIN) {
                 final ItemStack item = player.getInventory().getItemInMainHand();
                 if (item.getItemMeta() == null) return;
-                if (!item.getItemMeta().hasCustomModelData()) return;
 
-                int customModel = item.getItemMeta().getCustomModelData();
+                CustomModelDataComponent cmd = item.getItemMeta().getCustomModelDataComponent();
+                if (cmd.getFloats().size() != 1) return;
+
+                int customModel = cmd.getFloats().get(0).intValue();
                 SiegeEngine siegeEngine = null;
                 // Search for match in custom model data value in defined siege engines
                 for (SiegeEngine entry : SiegeEngines.definedSiegeEngines.values()) {

@@ -22,6 +22,7 @@ import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.components.CustomModelDataComponent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.EulerAngle;
 
@@ -41,7 +42,9 @@ public class SiegeEnginesUtil {
             final ItemStack helmet = equipment.getHelmet();
             if (helmet != null) {
                 ItemMeta meta = helmet.getItemMeta();
-                meta.setCustomModelData(modelNumber);
+                CustomModelDataComponent cmd = meta.getCustomModelDataComponent();
+                cmd.setFloats(List.of((float) modelNumber));
+                meta.setCustomModelDataComponent(cmd);
                 helmet.setItemMeta(meta);
                 equipment.setHelmet(helmet);
             }
@@ -100,7 +103,7 @@ public class SiegeEnginesUtil {
                 }
             } else {
                 siegeEngines = SiegeEnginesUtil.createCloneFromCustomModelData(
-                    living.getEquipment().getHelmet().getItemMeta().getCustomModelData());
+                    living.getEquipment().getHelmet().getItemMeta().getCustomModelDataComponent().getFloats().get(0).intValue());
                 if (siegeEngines == null || !siegeEngines.getEnabled()) {
                     return false;
                 }
@@ -255,8 +258,10 @@ public class SiegeEnginesUtil {
                 equip = SiegeEngines.activeSiegeEngines.get(entity.getUniqueId());
                 if (equip == null || !equip.getEnabled()) return;
             } else {
-                equip = SiegeEnginesUtil.createCloneFromCustomModelData(
-                    living.getEquipment().getHelmet().getItemMeta().getCustomModelData());
+                CustomModelDataComponent cmd = living.getEquipment().getHelmet().getItemMeta().getCustomModelDataComponent();
+                if (cmd.getFloats().size() != 1) return;
+
+                equip = SiegeEnginesUtil.createCloneFromCustomModelData(cmd.getFloats().get(0).intValue());
                 if (equip == null || !equip.getEnabled()) return;
                 equip.setAmmoHolder(new SiegeEngineAmmoHolder());
                 equip.setEntity(entity);

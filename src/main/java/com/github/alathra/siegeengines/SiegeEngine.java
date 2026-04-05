@@ -11,6 +11,7 @@ import org.bukkit.entity.ArmorStand.LockType;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.components.CustomModelDataComponent;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
@@ -255,21 +256,21 @@ public class SiegeEngine implements Cloneable {
             return;
         }
 
-        if (living.getEquipment().getHelmet().getItemMeta().getCustomModelData() != getReadyModelNumber() || getAmmoHolder().getLoadedProjectile() == 0) {
+        CustomModelDataComponent cmd = living.getEquipment().getHelmet().getItemMeta().getCustomModelDataComponent();
+        if (cmd.getFloats().get(0).intValue() != getReadyModelNumber() || getAmmoHolder().getLoadedProjectile() == 0) {
             if (!isSetModelNumberWhenFullyLoaded()) {
                 if (player instanceof Player) {
                     player.sendMessage("§eCannot fire yet!");
                 }
                 return;
-            } else {
-                if (isSetModelNumberWhenFullyLoaded() && living.getEquipment().getHelmet().getItemMeta().getCustomModelData() != getPreFireModelNumber()) {
-                    if (player instanceof Player) {
-                        player.sendMessage("§eCannot fire yet!");
-                    }
-                    return;
+            } else if (isSetModelNumberWhenFullyLoaded() && cmd.getFloats().get(0).intValue() != getPreFireModelNumber()) {
+                if (player instanceof Player) {
+                    player.sendMessage("§eCannot fire yet!");
                 }
+                return;
             }
         }
+
         getAmmoHolder().setLoadedFuel(0);
         getAmmoHolder().setLoadedProjectile(0);
         getAmmoHolder().setMaterialName(new ItemStack(Material.AIR));
