@@ -3,9 +3,9 @@ import java.time.Instant
 plugins {
     `java-library`
 
-    alias(libs.plugins.shadow) // Shades and relocates dependencies, see https://gradleup.com/shadow/
-    alias(libs.plugins.run.paper) // Built in test server using runServer and runMojangMappedServer tasks
-    alias(libs.plugins.plugin.yml) // Automatic plugin.yml generation
+    id("com.gradleup.shadow") version "8.3.8" // Shades and relocates dependencies, see https://gradleup.com/shadow/
+    id("xyz.jpenilla.run-paper") version "2.3.1" // Built in test server using runServer and runMojangMappedServer tasks
+    id("de.eldoria.plugin-yml.bukkit") version "0.7.1" // Automatic plugin.yml generation
 
     eclipse
     idea
@@ -29,17 +29,17 @@ repositories {
 
 dependencies {
     // Core dependencies
-    compileOnly(libs.annotations)
-    annotationProcessor(libs.annotations)
-    compileOnly(libs.paper.api)
+    compileOnly("org.jetbrains:annotations:26.0.1")
+    annotationProcessor("org.jetbrains:annotations:26.0.1")
+    compileOnly("dev.folia:folia-api:1.21.11-R0.1-SNAPSHOT")
 
     // API
-    implementation(libs.colorparser) {
+    implementation("io.github.milkdrinkers:colorparser:3.0.1") {
         exclude("org.intellij.lang.annotations")
         exclude("org.jetbrains.lang.annotations")
         exclude("net.kyori")
     }
-    implementation(libs.commandapi.shade)
+    implementation("dev.jorel:commandapi-bukkit-shade:10.1.2")
 }
 
 tasks {
