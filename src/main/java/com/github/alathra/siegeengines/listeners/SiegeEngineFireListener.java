@@ -49,9 +49,9 @@ public class SiegeEngineFireListener implements Listener {
                     } else {
                         siegeEngine.Fire(player, 10f, 1);
                         // Attempt auto-reload if enabled in config
-                        if (Config.autoReload) {
-                            SiegeEnginesUtil.autoReload(player);
-                        }
+                        // if (Config.autoReload) {
+                        //     SiegeEnginesUtil.autoReload(player);
+                        // }
                     }
                 }
             }
