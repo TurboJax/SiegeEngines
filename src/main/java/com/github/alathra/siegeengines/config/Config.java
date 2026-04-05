@@ -6,15 +6,19 @@ import com.github.alathra.siegeengines.crafting.CraftingRecipes;
 import com.github.alathra.siegeengines.data.SiegeEnginesData;
 import com.github.alathra.siegeengines.projectile.*;
 import com.github.alathra.siegeengines.util.SiegeEnginesUtil;
-import org.bukkit.*;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.EntityType;
-import org.bukkit.inventory.ItemStack;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.EntityType;
+import org.bukkit.inventory.ItemStack;
 
 @SuppressWarnings("deprecation")
 public class Config {
@@ -127,17 +131,14 @@ public class Config {
             trebuchetFuelItem = Material.getMaterial(config.getString("SiegeEngines.Trebuchet.FuelItem"));
         } catch (Exception e) {
             trebuchetFuelItem = Material.STRING;
-            SiegeEnginesLogger.warn("Propellant item material could not be found, defaulting to "
-                + trebuchetFuelItem + " !");
+            SiegeEnginesLogger.warn("Propellant item material could not be found, defaulting to " + trebuchetFuelItem + " !");
         }
         for (String projectileName : config.getStringList("SiegeEngines.Trebuchet.Projectiles")) {
             if (projectileMap.containsKey(projectileName)) {
-                trebuchetProjectiles.put(projectileMap.get(projectileName).getAmmuinitionItem(),
-                    projectileMap.get(projectileName));
+                trebuchetProjectiles.put(projectileMap.get(projectileName).getAmmuinitionItem(), projectileMap.get(projectileName));
             }
         }
-        trebuchetItemName = ChatColor.translateAlternateColorCodes('&',
-            config.getString("SiegeEngines.Trebuchet.ItemName"));
+        trebuchetItemName = ChatColor.translateAlternateColorCodes('&', config.getString("SiegeEngines.Trebuchet.ItemName"));
         trebuchetItemLore = config.getStringList("SiegeEngines.Trebuchet.Lore");
         trebuchetItemLore.replaceAll(textToTranslate -> ChatColor.translateAlternateColorCodes('&', textToTranslate));
         trebuchetCanMount = config.getBoolean("SiegeEngines.Trebuchet.CanMount");
@@ -152,17 +153,14 @@ public class Config {
             ballistaFuelItem = Material.getMaterial(config.getString("SiegeEngines.Ballista.FuelItem"));
         } catch (Exception e) {
             ballistaFuelItem = Material.STRING;
-            SiegeEnginesLogger.warn(
-                "Propellant item material could not be found, defaulting to " + ballistaFuelItem + " !");
+            SiegeEnginesLogger.warn("Propellant item material could not be found, defaulting to " + ballistaFuelItem + " !");
         }
         for (String projectileName : config.getStringList("SiegeEngines.Ballista.Projectiles")) {
             if (projectileMap.containsKey(projectileName)) {
-                ballistaProjectiles.put(projectileMap.get(projectileName).getAmmuinitionItem(),
-                    projectileMap.get(projectileName));
+                ballistaProjectiles.put(projectileMap.get(projectileName).getAmmuinitionItem(), projectileMap.get(projectileName));
             }
         }
-        ballistaItemName = ChatColor.translateAlternateColorCodes('&',
-            config.getString("SiegeEngines.Ballista.ItemName"));
+        ballistaItemName = ChatColor.translateAlternateColorCodes('&', config.getString("SiegeEngines.Ballista.ItemName"));
         ballistaItemLore = config.getStringList("SiegeEngines.Ballista.Lore");
         ballistaItemLore.replaceAll(textToTranslate -> ChatColor.translateAlternateColorCodes('&', textToTranslate));
         ballistaCanMount = config.getBoolean("SiegeEngines.Ballista.CanMount");
@@ -177,17 +175,14 @@ public class Config {
             swivelCannonFuelItem = Material.getMaterial(config.getString("SiegeEngines.SwivelCannon.FuelItem"));
         } catch (Exception e) {
             swivelCannonFuelItem = Material.GUNPOWDER;
-            SiegeEnginesLogger.warn("Propellant item material could not be found, defaulting to "
-                + swivelCannonFuelItem + " !");
+            SiegeEnginesLogger.warn("Propellant item material could not be found, defaulting to " + swivelCannonFuelItem + " !");
         }
         for (String projectileName : config.getStringList("SiegeEngines.SwivelCannon.Projectiles")) {
             if (projectileMap.containsKey(projectileName)) {
-                swivelCannonProjectiles.put(projectileMap.get(projectileName).getAmmuinitionItem(),
-                    projectileMap.get(projectileName));
+                swivelCannonProjectiles.put(projectileMap.get(projectileName).getAmmuinitionItem(), projectileMap.get(projectileName));
             }
         }
-        swivelCannonItemName = ChatColor.translateAlternateColorCodes('&',
-            config.getString("SiegeEngines.SwivelCannon.ItemName"));
+        swivelCannonItemName = ChatColor.translateAlternateColorCodes('&', config.getString("SiegeEngines.SwivelCannon.ItemName"));
         swivelCannonItemLore = config.getStringList("SiegeEngines.SwivelCannon.Lore");
         swivelCannonItemLore.replaceAll(textToTranslate -> ChatColor.translateAlternateColorCodes('&', textToTranslate));
         swivelCannonCanMount = config.getBoolean("SiegeEngines.SwivelCannon.CanMount");
@@ -202,17 +197,14 @@ public class Config {
             breachCannonFuelItem = Material.getMaterial(config.getString("SiegeEngines.BreachCannon.FuelItem"));
         } catch (Exception e) {
             breachCannonFuelItem = Material.GUNPOWDER;
-            SiegeEnginesLogger.warn("Propellant item material could not be found, defaulting to "
-                + breachCannonFuelItem + " !");
+            SiegeEnginesLogger.warn("Propellant item material could not be found, defaulting to " + breachCannonFuelItem + " !");
         }
         for (String projectileName : config.getStringList("SiegeEngines.BreachCannon.Projectiles")) {
             if (projectileMap.containsKey(projectileName)) {
-                breachCannonProjectiles.put(projectileMap.get(projectileName).getAmmuinitionItem(),
-                    projectileMap.get(projectileName));
+                breachCannonProjectiles.put(projectileMap.get(projectileName).getAmmuinitionItem(), projectileMap.get(projectileName));
             }
         }
-        breachCannonItemName = ChatColor.translateAlternateColorCodes('&',
-            config.getString("SiegeEngines.BreachCannon.ItemName"));
+        breachCannonItemName = ChatColor.translateAlternateColorCodes('&', config.getString("SiegeEngines.BreachCannon.ItemName"));
         breachCannonItemLore = config.getStringList("SiegeEngines.BreachCannon.Lore");
         breachCannonItemLore.replaceAll(textToTranslate -> ChatColor.translateAlternateColorCodes('&', textToTranslate));
         breachCannonCanMount = config.getBoolean("SiegeEngines.BreachCannon.CanMount");
@@ -245,70 +237,51 @@ public class Config {
 
             ProjectileType projectileType;
             try {
-                projectileType = ProjectileType
-                    .valueOf(config.getString("Projectiles." + projectileName + ".ProjectileType"));
+                projectileType = ProjectileType.valueOf(config.getString("Projectiles." + projectileName + ".ProjectileType"));
             } catch (Exception e) {
-                SiegeEnginesLogger
-                    .warn("Could not load projectile - " + projectileName + " likely due to a config error!");
+                SiegeEnginesLogger.warn("Could not load projectile - " + projectileName + " likely due to a config error!");
                 continue;
             }
 
             try {
                 switch (projectileType) {
                     case EXPLOSIVE:
-                        ExplosiveProjectile explosiveProjectile = new ExplosiveProjectile(new ItemStack(
-                            Material.getMaterial(config.getString("Projectiles." + projectileName + ".AmmoItem"))));
-                        explosiveProjectile.explodePower = (float) config
-                            .getDouble("Projectiles." + projectileName + ".ExplodePower");
-                        explosiveProjectile.inaccuracy = (float) config
-                            .getDouble("Projectiles." + projectileName + ".Inaccuracy");
-                        explosiveProjectile.projectilesCount = config
-                            .getInt("Projectiles." + projectileName + ".ProjectileCount");
-                        explosiveProjectile.soundType = Sound
-                            .valueOf(config.getString("Projectiles." + projectileName + ".FireSound"));
-                        explosiveProjectile.velocityFactor = (float) config
-                            .getDouble("Projectiles." + projectileName + ".VelocityFactor");
+                        ExplosiveProjectile explosiveProjectile = new ExplosiveProjectile(new ItemStack(Material.getMaterial(config.getString("Projectiles." + projectileName + ".AmmoItem"))));
+                        explosiveProjectile.explodePower = (float) config.getDouble("Projectiles." + projectileName + ".ExplodePower");
+                        explosiveProjectile.inaccuracy = (float) config.getDouble("Projectiles." + projectileName + ".Inaccuracy");
+                        explosiveProjectile.projectilesCount = config.getInt("Projectiles." + projectileName + ".ProjectileCount");
+                        explosiveProjectile.soundType = Sound.valueOf(config.getString("Projectiles." + projectileName + ".FireSound"));
+                        explosiveProjectile.velocityFactor = (float) config.getDouble("Projectiles." + projectileName + ".VelocityFactor");
                         projectileMap.put(projectileName, explosiveProjectile);
                         break;
                     case ENTITY:
-                        EntityProjectile entityProjectile = new EntityProjectile(new ItemStack(
-                            Material.getMaterial(config.getString("Projectiles." + projectileName + ".AmmoItem"))));
-                        entityProjectile.inaccuracy = (float) config
-                            .getDouble("Projectiles." + projectileName + ".Inaccuracy");
+                        EntityProjectile entityProjectile = new EntityProjectile(new ItemStack(Material.getMaterial(config.getString("Projectiles." + projectileName + ".AmmoItem"))));
+                        entityProjectile.inaccuracy = (float) config.getDouble("Projectiles." + projectileName + ".Inaccuracy");
                         entityProjectile.projectileCount = config.getInt("Projectiles." + projectileName + ".ProjectileCount");
-                        entityProjectile.entityType = EntityType
-                            .valueOf(config.getString("Projectiles." + projectileName + ".EntityType"));
-                        entityProjectile.soundType = Sound
-                            .valueOf(config.getString("Projectiles." + projectileName + ".FireSound"));
-                        entityProjectile.velocityFactor = (float) config
-                            .getDouble("Projectiles." + projectileName + ".VelocityFactor");
+                        entityProjectile.entityType = EntityType.valueOf(config.getString("Projectiles." + projectileName + ".EntityType"));
+                        entityProjectile.soundType = Sound.valueOf(config.getString("Projectiles." + projectileName + ".FireSound"));
+                        entityProjectile.velocityFactor = (float) config.getDouble("Projectiles." + projectileName + ".VelocityFactor");
                         if (entityProjectile.entityType.equals(EntityType.ARROW)) {
-                            entityProjectile.arrowDamageFactor = (float) config
-                                .getDouble("Projectiles." + projectileName + ".ArrowDamageFactor");
+                            entityProjectile.arrowDamageFactor = (float) config.getDouble("Projectiles." + projectileName + ".ArrowDamageFactor");
                         }
                         projectileMap.put(projectileName, entityProjectile);
                         break;
                     case FIREWORK:
                         FireworkProjectile fireworkProjectile = new FireworkProjectile(SiegeEnginesUtil.DEFAULT_ROCKET);
-                        fireworkProjectile.inaccuracy = (float) config
-                            .getDouble("Projectiles." + projectileName + ".Inaccuracy");
+                        fireworkProjectile.inaccuracy = (float) config.getDouble("Projectiles." + projectileName + ".Inaccuracy");
                         fireworkProjectile.projectileCount = config.getInt("Projectiles." + projectileName + ".ProjectileCount");
                         fireworkProjectile.delayTime = config.getInt("Projectiles." + projectileName + ".ProjectileCount");
                         fireworkProjectile.delayedFire = fireworkProjectile.delayTime > 0;
-                        fireworkProjectile.velocityFactor = (float) config
-                            .getDouble("Projectiles." + projectileName + ".VelocityFactor");
+                        fireworkProjectile.velocityFactor = (float) config.getDouble("Projectiles." + projectileName + ".VelocityFactor");
                         projectileMap.put(projectileName, fireworkProjectile);
                         break;
                     case POTION:
-                        PotionProjectile potionProjectile = new PotionProjectile(new ItemStack(
-                            Material.getMaterial(config.getString("Projectiles." + projectileName + ".AmmoItem"))));
-                        potionProjectile.inaccuracy = (float) config
-                            .getDouble("Projectiles." + projectileName + ".Inaccuracy");
+                        PotionProjectile potionProjectile = new PotionProjectile(new ItemStack(Material.getMaterial(config.getString("Projectiles." + projectileName + ".AmmoItem"))));
+                        potionProjectile.inaccuracy = (float) config.getDouble("Projectiles." + projectileName + ".Inaccuracy");
                         potionProjectile.projectileCount = config.getInt("Projectiles." + projectileName + ".ProjectileCount");
                         potionProjectile.delayTime = config.getInt("Projectiles." + projectileName + ".ProjectileCount");
                         potionProjectile.delayedFire = potionProjectile.delayTime > 0;
-                        potionProjectile.velocityFactor = (float) config
-                            .getDouble("Projectiles." + projectileName + ".VelocityFactor");
+                        potionProjectile.velocityFactor = (float) config.getDouble("Projectiles." + projectileName + ".VelocityFactor");
                         projectileMap.put(projectileName, potionProjectile);
                         break;
                     default:
