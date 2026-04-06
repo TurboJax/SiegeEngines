@@ -31,7 +31,7 @@ public class PotionProjectile extends SiegeEngineProjectile {
         for (int i = 0; i < projectileCount; i++) {
             if (delayedFire) {
                 baseDelay += delayTime;
-                Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(SiegeEngines.getInstance(), () -> CreateEntity(entity, loc, velocity), baseDelay);
+                Bukkit.getServer().getGlobalRegionScheduler().runDelayed(SiegeEngines.getInstance(), task -> CreateEntity(entity, loc, velocity), baseDelay);
             } else {
                 CreateEntity(entity, loc, velocity);
             }

@@ -39,7 +39,7 @@ public class ExplosiveProjectile extends SiegeEngineProjectile {
         for (int i = 0; i < projectilesCount; i++) {
             if (delayedFire) {
                 baseDelay += delayTime;
-                Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(SiegeEngines.getInstance(), () -> CreateEntity(entity, loc, velocity * velocityFactor, player), baseDelay);
+                Bukkit.getServer().getGlobalRegionScheduler().runDelayed(SiegeEngines.getInstance(), task -> CreateEntity(entity, loc, velocity * velocityFactor, player), baseDelay);
             } else {
                 CreateEntity(entity, loc, velocity * velocityFactor, player);
             }

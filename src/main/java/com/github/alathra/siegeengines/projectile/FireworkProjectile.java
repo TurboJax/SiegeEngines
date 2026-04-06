@@ -46,7 +46,7 @@ public class FireworkProjectile extends SiegeEngineProjectile {
         for (int i = 0; i < projectileCount; i++) {
             if (delayedFire) {
                 baseDelay += delayTime;
-                Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(SiegeEngines.getInstance(), () -> CreateEntity(entity, FireLocation, velocity * velocityFactor, player), baseDelay);
+                Bukkit.getServer().getGlobalRegionScheduler().runDelayed(SiegeEngines.getInstance(), task -> CreateEntity(entity, FireLocation, velocity * velocityFactor, player), baseDelay);
             } else {
                 CreateEntity(entity, FireLocation, velocity * velocityFactor, player);
             }
