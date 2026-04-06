@@ -8,12 +8,16 @@ import com.github.alathra.siegeengines.projectile.*;
 import com.github.alathra.siegeengines.util.SiegeEnginesUtil;
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
@@ -21,9 +25,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
-@SuppressWarnings("deprecation")
+// @SuppressWarnings("deprecation")
 public class Config {
-
+    private static final MiniMessage mm = MiniMessage.miniMessage();
     private static FileConfiguration config;
 
     // Universal Options - Defaults
@@ -50,8 +54,8 @@ public class Config {
     public static Material trebuchetFuelItem = Material.STRING;
     public static double trebuchetHealth = 8d;
     public static HashMap<ItemStack, SiegeEngineProjectile> trebuchetProjectiles = new HashMap<>();
-    public static String trebuchetItemName = "&e&oTrebuchet";
-    public static List<String> trebuchetItemLore;
+    public static Component trebuchetItemName = Component.text("Trebuchet", NamedTextColor.YELLOW, TextDecoration.ITALIC);
+    public static List<Component> trebuchetItemLore = new ArrayList<>();
     public static boolean trebuchetCanMount;
 
     public static int ballistaShotAmount = 1;
@@ -60,8 +64,8 @@ public class Config {
     public static int ballistaMaxFuel = 4;
     public static Material ballistaFuelItem = Material.STRING;
     public static HashMap<ItemStack, SiegeEngineProjectile> ballistaProjectiles = new HashMap<>();
-    public static String ballistaItemName = "&e&oBallista";
-    public static List<String> ballistaItemLore;
+    public static Component ballistaItemName = Component.text("Ballista", NamedTextColor.YELLOW, TextDecoration.ITALIC);
+    public static List<Component> ballistaItemLore = new ArrayList<>();
     public static boolean ballistaCanMount;
 
     public static int swivelCannonShotAmount = 1;
@@ -70,8 +74,8 @@ public class Config {
     public static int swivelCannonMaxFuel = 5;
     public static Material swivelCannonFuelItem = Material.GUNPOWDER;
     public static HashMap<ItemStack, SiegeEngineProjectile> swivelCannonProjectiles = new HashMap<>();
-    public static String swivelCannonItemName = "&e&oSwivel Cannon";
-    public static List<String> swivelCannonItemLore;
+    public static Component swivelCannonItemName = Component.text("Swivel Cannon", NamedTextColor.YELLOW, TextDecoration.ITALIC);
+    public static List<Component> swivelCannonItemLore = new ArrayList<>();
     public static boolean swivelCannonCanMount;
 
     public static int breachCannonShotAmount = 1;
@@ -80,8 +84,8 @@ public class Config {
     public static int breachCannonMaxFuel = 4;
     public static Material breachCannonFuelItem = Material.GUNPOWDER;
     public static HashMap<ItemStack, SiegeEngineProjectile> breachCannonProjectiles = new HashMap<>();
-    public static String breachCannonItemName = "&e&oBreach Cannon";
-    public static List<String> breachCannonItemLore;
+    public static Component breachCannonItemName = Component.text("Breach Cannon", NamedTextColor.YELLOW, TextDecoration.ITALIC);
+    public static List<Component> breachCannonItemLore = new ArrayList<>();
     public static boolean breachCannonCanMount;
 
     // Projectiles
@@ -139,9 +143,8 @@ public class Config {
                 trebuchetProjectiles.put(projectileMap.get(projectileName).getAmmunitionItem(), projectileMap.get(projectileName));
             }
         }
-        trebuchetItemName = ChatColor.translateAlternateColorCodes('&', config.getString("SiegeEngines.Trebuchet.ItemName"));
-        trebuchetItemLore = config.getStringList("SiegeEngines.Trebuchet.Lore");
-        trebuchetItemLore.replaceAll(textToTranslate -> ChatColor.translateAlternateColorCodes('&', textToTranslate));
+        trebuchetItemName = mm.deserialize(config.getString("SiegeEngines.Trebuchet.ItemName"));
+        trebuchetItemLore = config.getStringList("SiegeEngines.Trebuchet.Lore").stream().map(mm::deserialize).toList();
         trebuchetCanMount = config.getBoolean("SiegeEngines.Trebuchet.CanMount");
     }
 
@@ -161,9 +164,8 @@ public class Config {
                 ballistaProjectiles.put(projectileMap.get(projectileName).getAmmunitionItem(), projectileMap.get(projectileName));
             }
         }
-        ballistaItemName = ChatColor.translateAlternateColorCodes('&', config.getString("SiegeEngines.Ballista.ItemName"));
-        ballistaItemLore = config.getStringList("SiegeEngines.Ballista.Lore");
-        ballistaItemLore.replaceAll(textToTranslate -> ChatColor.translateAlternateColorCodes('&', textToTranslate));
+        ballistaItemName = mm.deserialize(config.getString("SiegeEngines.Ballista.ItemName"));
+        ballistaItemLore = config.getStringList("SiegeEngines.Ballista.Lore").stream().map(mm::deserialize).toList();
         ballistaCanMount = config.getBoolean("SiegeEngines.Ballista.CanMount");
     }
 
@@ -183,9 +185,8 @@ public class Config {
                 swivelCannonProjectiles.put(projectileMap.get(projectileName).getAmmunitionItem(), projectileMap.get(projectileName));
             }
         }
-        swivelCannonItemName = ChatColor.translateAlternateColorCodes('&', config.getString("SiegeEngines.SwivelCannon.ItemName"));
-        swivelCannonItemLore = config.getStringList("SiegeEngines.SwivelCannon.Lore");
-        swivelCannonItemLore.replaceAll(textToTranslate -> ChatColor.translateAlternateColorCodes('&', textToTranslate));
+        swivelCannonItemName = mm.deserialize(config.getString("SiegeEngines.SwivelCannon.ItemName"));
+        swivelCannonItemLore = config.getStringList("SiegeEngines.SwivelCannon.Lore").stream().map(mm::deserialize).toList();
         swivelCannonCanMount = config.getBoolean("SiegeEngines.SwivelCannon.CanMount");
     }
 
@@ -205,9 +206,8 @@ public class Config {
                 breachCannonProjectiles.put(projectileMap.get(projectileName).getAmmunitionItem(), projectileMap.get(projectileName));
             }
         }
-        breachCannonItemName = ChatColor.translateAlternateColorCodes('&', config.getString("SiegeEngines.BreachCannon.ItemName"));
-        breachCannonItemLore = config.getStringList("SiegeEngines.BreachCannon.Lore");
-        breachCannonItemLore.replaceAll(textToTranslate -> ChatColor.translateAlternateColorCodes('&', textToTranslate));
+        breachCannonItemName = mm.deserialize(config.getString("SiegeEngines.BreachCannon.ItemName"));
+        breachCannonItemLore = config.getStringList("SiegeEngines.BreachCannon.Lore").stream().map(mm::deserialize).toList();
         breachCannonCanMount = config.getBoolean("SiegeEngines.BreachCannon.CanMount");
     }
 

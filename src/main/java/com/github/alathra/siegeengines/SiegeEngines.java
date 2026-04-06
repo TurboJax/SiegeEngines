@@ -77,20 +77,20 @@ public class SiegeEngines extends JavaPlugin {
                 meta.setCustomModelData(siegeEngine.getReadyModelNumber());
                 switch (siegeEngine.getType()) {
                     case TREBUCHET:
-                        meta.setDisplayName(Config.trebuchetItemName);
-                        meta.setLore(Config.trebuchetItemLore);
+                        meta.displayName(Config.trebuchetItemName);
+                        meta.lore(Config.trebuchetItemLore);
                         break;
                     case BALLISTA:
-                        meta.setDisplayName(Config.ballistaItemName);
-                        meta.setLore(Config.ballistaItemLore);
+                        meta.displayName(Config.ballistaItemName);
+                        meta.lore(Config.ballistaItemLore);
                         break;
                     case SWIVEL_CANNON:
-                        meta.setDisplayName(Config.swivelCannonItemName);
-                        meta.setLore(Config.swivelCannonItemLore);
+                        meta.displayName(Config.swivelCannonItemName);
+                        meta.lore(Config.swivelCannonItemLore);
                         break;
                     case BREACH_CANNON:
-                        meta.setDisplayName(Config.breachCannonItemName);
-                        meta.setLore(Config.ballistaItemLore);
+                        meta.displayName(Config.breachCannonItemName);
+                        meta.lore(Config.ballistaItemLore);
                         break;
                     default: {}
                 }

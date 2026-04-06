@@ -10,7 +10,6 @@ import dev.jorel.commandapi.arguments.StringArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
 import java.util.List;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -123,9 +122,8 @@ public class SiegeEnginesCommand {
         CustomModelDataComponent cmd = meta.getCustomModelDataComponent();
         cmd.setFloats(List.of((float) siegeEngine.getReadyModelNumber()));
         meta.setCustomModelDataComponent(cmd);
-        LegacyComponentSerializer lcs = LegacyComponentSerializer.legacySection();
-        meta.displayName(lcs.deserialize(siegeEngine.getItemName()));
-        meta.lore(siegeEngine.getItemLore().stream().map(lcs::deserialize).toList());
+        meta.displayName(siegeEngine.getItemName());
+        meta.lore(siegeEngine.getItemLore());
         item.setItemMeta(meta);
         player.getInventory().addItem(item);
     }

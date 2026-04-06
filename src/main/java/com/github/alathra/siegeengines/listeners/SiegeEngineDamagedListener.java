@@ -7,6 +7,10 @@ import com.github.alathra.siegeengines.data.SiegeEnginesData;
 import com.github.alathra.siegeengines.projectile.ExplosiveProjectile;
 import com.github.alathra.siegeengines.util.GeneralUtil;
 import com.github.alathra.siegeengines.util.SiegeEnginesUtil;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -52,8 +56,7 @@ public class SiegeEngineDamagedListener implements Listener {
             Projectile snowball = event.getEntity();
             Entity player = (Entity) snowball.getShooter();
             if (player instanceof Player) {
-                player.sendMessage("§eDistance to impact: "
-                        + String.format("%.2f", player.getLocation().distance(snowball.getLocation())));
+                player.sendMessage(Component.text(String.format("Distance to impact: %.2f", player.getLocation().distance(snowball.getLocation())), NamedTextColor.YELLOW));
             }
             Location loc = snowball.getLocation();
             Entity tnt = event.getEntity().getWorld().spawnEntity(loc, EntityType.TNT);

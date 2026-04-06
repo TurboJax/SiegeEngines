@@ -8,6 +8,10 @@ import com.github.alathra.siegeengines.config.Config;
 import com.github.alathra.siegeengines.listeners.PlayerHandler;
 import com.github.alathra.siegeengines.projectile.FireworkProjectile;
 import com.github.alathra.siegeengines.projectile.PotionProjectile;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -63,7 +67,7 @@ public class SiegeEnginesUtil {
         long minutes = TimeUnit.MILLISECONDS.toMinutes(time);
         time -= TimeUnit.MINUTES.toMillis(minutes);
         long seconds = TimeUnit.MILLISECONDS.toSeconds(time);
-        return String.format("§e" + minutes + " Minutes " + seconds + " Seconds§f");
+        return String.format("<yellow>" + minutes + " Minutes " + seconds + " Seconds<white>");
     }
 
     public static SiegeEngine createCloneFromCustomModelData(Integer ModelId) {
@@ -118,7 +122,7 @@ public class SiegeEnginesUtil {
             stand.addEquipmentLock(EquipmentSlot.CHEST, LockType.ADDING_OR_CHANGING);
             stand.addEquipmentLock(EquipmentSlot.FEET, LockType.ADDING_OR_CHANGING);
             stand.setBasePlate(true);
-            // player.sendMessage("§eNow controlling the equipment.");
+            // player.sendMessage(Component.text("Now controlling the equipment.", NamedTextColor.YELLOW));
             if (add) SiegeEngines.activeSiegeEngines.put(entity.getUniqueId(), siegeEngines);
             return true;
         }
@@ -204,7 +208,7 @@ public class SiegeEnginesUtil {
             List<Entity> entities = SiegeEngines.siegeEngineEntitiesPerPlayer.get(player.getUniqueId());
             if (entities.contains(entity)) {
                 if (player instanceof Player) {
-                    player.sendMessage("§eYou are already commanding this Siege Engine!");
+                    player.sendMessage(Component.text("You are already commanding this Siege Engine!", NamedTextColor.YELLOW));
                 }
                 return;
             }
@@ -224,7 +228,7 @@ public class SiegeEnginesUtil {
         }
         if (numPilots > 1) {
             if (player instanceof Player)
-                player.sendMessage("§eOnly one Player may command this Siege Engine!");
+                player.sendMessage(Component.text("Only one Player may command this Siege Engine!", NamedTextColor.YELLOW));
             return;
         }
 
@@ -233,7 +237,7 @@ public class SiegeEnginesUtil {
             if (SiegeEngines.siegeEngineEntitiesPerPlayer.get(player.getUniqueId())
                 .size() > Config.maxSiegeEnginesControlled) {
                 if (player instanceof Player) {
-                    player.sendMessage("§eYou are commanding too many Siege Engines!");
+                    player.sendMessage(Component.text("You are commanding too many Siege Engines!", NamedTextColor.YELLOW));
                     PlayerHandler.releasePlayerSiegeEngine(((Player) player), entity);
                 }
                 return;
@@ -287,11 +291,11 @@ public class SiegeEnginesUtil {
             }
             SiegeEnginesLogger.debug("NEW ENGINES : " + SiegeEngines.siegeEngineEntitiesPerPlayer.get(player.getUniqueId()));
             SiegeEngines.activeSiegeEngines.put(entity.getUniqueId(), equip);
-            // player.sendMessage("§eNow controlling the equipment.");
+            // player.sendMessage(Component.text("Now controlling the equipment.", NamedTextColor.YELLOW));
             if (player instanceof Player) {
-                player.sendMessage("§eYou are now commanding a total of "
+                player.sendMessage(Component.text("You are now commanding a total of "
                     + SiegeEngines.siegeEngineEntitiesPerPlayer.get(player.getUniqueId()).size()
-                    + " Siege Engines!");
+                    + " Siege Engines!", NamedTextColor.YELLOW));
             }
         }
     }
@@ -525,26 +529,22 @@ public class SiegeEnginesUtil {
     }
 
     public static void sendPropellantStatusMSG(Player player, SiegeEngine siegeEngine) {
-        player.sendMessage("§eReloaded propellant");
+        player.sendMessage(Component.text("Reloaded propellant", NamedTextColor.YELLOW));
         if (!siegeEngine.canLoadFuel()) {
-            player.sendMessage("§ePropellant is Full! Level: §6(" + siegeEngine.getAmmoHolder().getLoadedFuel() + "/"
-                + siegeEngine.getMaxFuel() + ")");
+            player.sendMessage(Component.text("Propellant is Full! Level: ", NamedTextColor.YELLOW).append(Component.text("(" + siegeEngine.getAmmoHolder().getLoadedFuel() + "/" + siegeEngine.getMaxFuel() + ")", NamedTextColor.GOLD)));
         } else {
-            player.sendMessage(
-                "§ePropellant level is: §6(" + siegeEngine.getAmmoHolder().getLoadedFuel() + "/" + siegeEngine.getMaxFuel() + ")");
+            player.sendMessage(Component.text("Propellant level is: ", NamedTextColor.YELLOW).append(Component.text("(" + siegeEngine.getAmmoHolder().getLoadedFuel() + "/" + siegeEngine.getMaxFuel() + ")", NamedTextColor.GOLD)));
         }
     }
 
     public static void sendSiegeEngineHelpMSG(Player player, SiegeEngine siegeEngine) {
         if (!siegeEngine.canLoadFuel()) {
-            player.sendMessage("§ePropellant is Full! Level: §6(" + siegeEngine.getAmmoHolder().getLoadedFuel() + "/"
-                + siegeEngine.getMaxFuel() + ")");
+            player.sendMessage(Component.text("Propellant is Full! Level: ", NamedTextColor.YELLOW).append(Component.text("(" + siegeEngine.getAmmoHolder().getLoadedFuel() + "/" + siegeEngine.getMaxFuel() + ")", NamedTextColor.GOLD)));
             if (siegeEngine.getAmmoHolder().getLoadedProjectile() == 0) {
-                player.sendMessage("§eLoad Ammunition by Right Clicking the Siege Engine with any Valid Projectilie!");
+                player.sendMessage(Component.text("Load Ammunition by Right Clicking the Siege Engine with any Valid Projectilie!", NamedTextColor.YELLOW));
             }
         } else {
-            player.sendMessage(
-                "§ePropellant level is: §6(" + siegeEngine.getAmmoHolder().getLoadedFuel() + "/" + siegeEngine.getMaxFuel() + ")");
+            player.sendMessage(Component.text("Propellant level is: ", NamedTextColor.YELLOW).append(Component.text("(" + siegeEngine.getAmmoHolder().getLoadedFuel() + "/" + siegeEngine.getMaxFuel() + ")", NamedTextColor.GOLD)));
         }
     }
 

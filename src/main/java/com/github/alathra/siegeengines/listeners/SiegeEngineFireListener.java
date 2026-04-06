@@ -3,6 +3,10 @@ package com.github.alathra.siegeengines.listeners;
 import com.github.alathra.siegeengines.SiegeEngine;
 import com.github.alathra.siegeengines.SiegeEngines;
 import com.github.alathra.siegeengines.config.Config;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -44,7 +48,7 @@ public class SiegeEngineFireListener implements Listener {
                 if (siegeEngine != null && siegeEngine.getEnabled() && !(siegeEngineEntity.isDead())
                     && siegeEngine.isLoaded()) {
                     if (siegeEngine.isSetModelNumberWhenFullyLoaded() && siegeEngine.canLoadFuel()) {
-                        player.sendMessage("§eFailed to fire. This siege engine needs to be fully loaded!");
+                        player.sendMessage(Component.text("Failed to fire. This siege engine needs to be fully loaded!", NamedTextColor.YELLOW));
                     } else {
                         siegeEngine.Fire(player, 10f, 1);
                         // Attempt auto-reload if enabled in config

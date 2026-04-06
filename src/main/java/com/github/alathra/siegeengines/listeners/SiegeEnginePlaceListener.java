@@ -4,6 +4,10 @@ import com.github.alathra.siegeengines.SiegeEngine;
 import com.github.alathra.siegeengines.SiegeEngines;
 import com.github.alathra.siegeengines.config.Config;
 import com.github.alathra.siegeengines.data.SiegeEnginesData;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -51,12 +55,12 @@ public class SiegeEnginePlaceListener implements Listener {
         if (siegeEngine == null) return;
 
         if (Config.disabledWorlds.contains(thePlayer.getWorld())) {
-            thePlayer.sendMessage("§eSiege Engines cannot be placed in this World.");
+            thePlayer.sendMessage(Component.text("Siege Engines cannot be placed in this World.", NamedTextColor.YELLOW));
             event.setCancelled(true);
         }
         
         if (SiegeEnginesData.fluidMaterials.contains(replaced)) {
-            thePlayer.sendMessage("§eSiege Engines cannot be placed in Fluid Blocks.");
+            thePlayer.sendMessage(Component.text("Siege Engines cannot be placed in Fluid Blocks.", NamedTextColor.YELLOW));
             event.setCancelled(true);
         }
         
@@ -64,9 +68,9 @@ public class SiegeEnginePlaceListener implements Listener {
         
         if (siegeEngine.place(thePlayer, event.getBlockAgainst().getLocation())) {
             item.subtract();
-            thePlayer.sendMessage("§eSiege Engine placed!");
+            thePlayer.sendMessage(Component.text("Siege Engine placed!", NamedTextColor.YELLOW));
         } else {
-            thePlayer.sendMessage("§eSiege Engine cannot be placed within a " + Config.placementDensity + " Block-Radius of other Siege Engines.");
+            thePlayer.sendMessage(Component.text("Siege Engine cannot be placed within a " + Config.placementDensity + " Block-Radius of other Siege Engines.", NamedTextColor.YELLOW));
         }
         event.setCancelled(true);
     }

@@ -5,6 +5,10 @@ import com.github.alathra.siegeengines.projectile.EntityProjectile;
 import com.github.alathra.siegeengines.projectile.FireworkProjectile;
 import com.github.alathra.siegeengines.projectile.SiegeEngineProjectile;
 import com.github.alathra.siegeengines.util.SiegeEnginesUtil;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.entity.ArmorStand.LockType;
@@ -28,8 +32,8 @@ public class SiegeEngine implements Cloneable {
     private SiegeEngineType type;
     private Boolean enabled;
     private String id;
-    private String itemName;
-    private List<String> itemLore;
+    private Component itemName;
+    private List<Component> itemLore;
     private String worldName;
     private UUID entityId;
     private Entity entity;
@@ -89,7 +93,7 @@ public class SiegeEngine implements Cloneable {
 
         // Set Default values
         setType(SiegeEngineType.UNKNOWN);
-        setItemName("§eUnknown Siege Engine");
+        setItemName(Component.text("Unknown Siege Engine", NamedTextColor.YELLOW));
         setItemLore(new ArrayList<>());
         setXOffset(0);
         setYOffset(0);
@@ -175,7 +179,7 @@ public class SiegeEngine implements Cloneable {
                 this.getAmmoHolder().setLoadedFuel(this.getAmmoHolder().getLoadedFuel() + 1);
                 //SaveState();
                 ((Player) player).getInventory().removeItem(getFuelItem());
-                player.sendMessage("§eLoaded " + getAmmoHolder().getLoadedFuel() + "/" + getMaxFuel());
+                player.sendMessage(Component.text("Loaded " + getAmmoHolder().getLoadedFuel() + "/" + getMaxFuel(), NamedTextColor.YELLOW));
                 return true;
             } else {
                 return false;
@@ -200,7 +204,7 @@ public class SiegeEngine implements Cloneable {
             if (im.getType().equals(itemInHand.getType()) && getAmmoHolder().getLoadedProjectile() == 0) {
                 getAmmoHolder().setLoadedProjectile(1);
                 getAmmoHolder().setMaterialName(itemInHand);
-                player.sendMessage("§eAdding Ammunition to Weapon");
+                player.sendMessage(Component.text("Adding Ammunition to Weapon", NamedTextColor.YELLOW));
                 itemInHand.setAmount(itemInHand.getAmount() - 1);
                 return true;
             }
@@ -259,12 +263,12 @@ public class SiegeEngine implements Cloneable {
         if (cmd.getFloats().get(0).intValue() != getReadyModelNumber() || getAmmoHolder().getLoadedProjectile() == 0) {
             if (!isSetModelNumberWhenFullyLoaded()) {
                 if (player instanceof Player) {
-                    player.sendMessage("§eCannot fire yet!");
+                    player.sendMessage(Component.text("Cannot fire yet!", NamedTextColor.YELLOW));
                 }
                 return;
             } else if (isSetModelNumberWhenFullyLoaded() && cmd.getFloats().get(0).intValue() != getPreFireModelNumber()) {
                 if (player instanceof Player) {
-                    player.sendMessage("§eCannot fire yet!");
+                    player.sendMessage(Component.text("Cannot fire yet!", NamedTextColor.YELLOW));
                 }
                 return;
             }
@@ -330,10 +334,10 @@ public class SiegeEngine implements Cloneable {
                     if (nextModelNumber < getFiringModelNumbers().size()) {
 
                         int modelData = getFiringModelNumbers().get(nextModelNumber);
-                        //	player.sendMessage("§e" + modelData);
+                        //	player.sendMessage(Component.text(modelData, NamedTextColor.YELLOW));
                         SiegeEnginesUtil.UpdateEntityIdModel(getEntity(), modelData, getWorldName());
                         if (modelData == getModelNumberToFireAt()) {
-                            //	player.sendMessage("§efiring" + modelData);
+                            //	player.sendMessage(Component.text("firing" + modelData, NamedTextColor.YELLOW));
                             SiegeEngineProjectile projType;
                             if (LoadedProjectile == null) return;
                             if (LoadedProjectile.getType() == Material.AIR) return;
@@ -433,8 +437,8 @@ public class SiegeEngine implements Cloneable {
             entity2.getPersistentDataContainer().set(key, PersistentDataType.STRING, id);
         }
         meta.setCustomModelData(this.getReadyModelNumber());
-        meta.setDisplayName(this.getItemName());
-        meta.setLore(this.getItemLore());
+        meta.displayName(this.getItemName());
+        meta.lore(this.getItemLore());
         item.setItemMeta(meta);
 
 
@@ -490,19 +494,19 @@ public class SiegeEngine implements Cloneable {
         this.enabled = enabled;
     }
 
-    public String getItemName() {
+    public Component getItemName() {
         return itemName;
     }
 
-    public void setItemName(String itemName) {
+    public void setItemName(Component itemName) {
         this.itemName = itemName;
     }
 
-    public List<String> getItemLore() {
+    public List<Component> getItemLore() {
         return itemLore;
     }
 
-    public void setItemLore(List<String> itemLore) {
+    public void setItemLore(List<Component> itemLore) {
         this.itemLore = itemLore;
     }
 

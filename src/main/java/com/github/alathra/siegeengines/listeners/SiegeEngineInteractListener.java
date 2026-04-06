@@ -5,6 +5,10 @@ import com.github.alathra.siegeengines.SiegeEngines;
 import com.github.alathra.siegeengines.config.Config;
 import com.github.alathra.siegeengines.data.SiegeEnginesData;
 import com.github.alathra.siegeengines.util.SiegeEnginesUtil;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -62,7 +66,7 @@ public class SiegeEngineInteractListener implements Listener {
                     }
                 }
                 if (SiegeEnginesUtil.pulledHeldAmmoFromPlayer(player, siegeEngine)) {
-                    player.sendMessage("§eAdded ammunition to this Siege Engine.");
+                    player.sendMessage(Component.text("Added ammunition to this Siege Engine.", NamedTextColor.YELLOW));
                     // If requires change in animation when loaded with a projectile (i.e. ballista)
                     if (siegeEngine.isSetModelNumberWhenFullyLoaded()) {
                         SiegeEnginesUtil.UpdateEntityIdModel(siegeEngine.getEntity(),
@@ -89,19 +93,19 @@ public class SiegeEngineInteractListener implements Listener {
                         return;
                     }
                     if (SiegeEnginesUtil.pulledAmmoFromContainer(siegeEngine.getEntity().getLocation(), siegeEngine)) {
-                        player.sendMessage("§eAdded ammunition to this Siege Engine.");
+                        player.sendMessage(Component.text("Added ammunition to this Siege Engine.", NamedTextColor.YELLOW));
                         return;
                     }
                     if (SiegeEnginesUtil.pulledAmmoFromContainer(
                         siegeEngine.getEntity().getLocation().getBlock().getRelative(0, -1, 0).getLocation(),
                         siegeEngine)) {
-                        player.sendMessage("§eAdded ammunition to this Siege Engine.");
+                        player.sendMessage(Component.text("Added ammunition to this Siege Engine.", NamedTextColor.YELLOW));
                         return;
                     }
                     if (SiegeEnginesUtil.pulledAmmoFromContainer(
                         siegeEngine.getEntity().getLocation().getBlock().getRelative(0, 1, 0).getLocation(),
                         siegeEngine)) {
-                        player.sendMessage("§eAdded ammunition to this Siege Engine.");
+                        player.sendMessage(Component.text("Added ammunition to this Siege Engine.", NamedTextColor.YELLOW));
                         return;
                     }
                 }
@@ -134,15 +138,15 @@ public class SiegeEngineInteractListener implements Listener {
                 // If SiegeEngine found, place it
                 if (siegeEngine != null) {
                     if (!siegeEngine.isMountable()) {
-                        player.sendMessage("§eThis type of Siege Engine cannot be mounted to mobs.");
+                        player.sendMessage(Component.text("This type of Siege Engine cannot be mounted to mobs.", NamedTextColor.YELLOW));
                         event.setCancelled(true);
                     }
                     if (Config.disabledWorlds.contains(entity.getWorld())) {
-                        player.sendMessage("§eSiege Engines cannot be placed in this World.");
+                        player.sendMessage(Component.text("Siege Engines cannot be placed in this World.", NamedTextColor.YELLOW));
                         event.setCancelled(true);
                     }
                     if (SiegeEnginesData.fluidMaterials.contains(entity.getLocation().getBlock().getType())) {
-                        player.sendMessage("§eSiege Engines cannot be placed in Fluid Blocks.");
+                        player.sendMessage(Component.text("Siege Engines cannot be placed in Fluid Blocks.", NamedTextColor.YELLOW));
                         event.setCancelled(true);
                     }
                     if (event.isCancelled()) return;
@@ -150,9 +154,9 @@ public class SiegeEngineInteractListener implements Listener {
                     if (siegeEngine.place(player, entity.getLocation(), entity)) {
                         // If player is in creative mode, don't remove the item from their inventory
                         if (player.getGameMode() == GameMode.SURVIVAL) item.subtract();
-                        player.sendMessage("§eSiege Engine mounted to the " + entity.getType().toString().toLowerCase() + "!");
+                        player.sendMessage(Component.text("Siege Engine mounted to the " + entity.getType().toString().toLowerCase() + "!", NamedTextColor.YELLOW));
                     } else {
-                        player.sendMessage("§eSiege Engine cannot be placed within a " + Config.placementDensity + " Block-Radius of other Siege Engines.");
+                        player.sendMessage(Component.text("Siege Engine cannot be placed within a " + Config.placementDensity + " Block-Radius of other Siege Engines.", NamedTextColor.YELLOW));
                     }
                     event.setCancelled(true);
                 }
@@ -200,7 +204,7 @@ public class SiegeEngineInteractListener implements Listener {
                     event.setCancelled(true);
                 }
                 if (SiegeEnginesUtil.pulledHeldAmmoFromPlayer(player, siegeEngine)) {
-                    player.sendMessage("§eAdded ammunition to this Siege Engine.");
+                    player.sendMessage(Component.text("Added ammunition to this Siege Engine.", NamedTextColor.YELLOW));
                     // If requires change in animation when loaded with a projectile (i.e. ballista)
                     if (siegeEngine.isSetModelNumberWhenFullyLoaded()) {
                         SiegeEnginesUtil.UpdateEntityIdModel(siegeEngine.getEntity(),

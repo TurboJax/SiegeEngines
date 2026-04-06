@@ -2,6 +2,10 @@ package com.github.alathra.siegeengines.listeners;
 
 import com.github.alathra.siegeengines.SiegeEngines;
 import com.github.alathra.siegeengines.SiegeEnginesLogger;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -58,7 +62,7 @@ public class PlayerHandler implements Listener {
 
             final Player p = Bukkit.getPlayer(uuid);
             if (!silent && p != null)
-                p.sendMessage("§eSiege Engine destroyed!");
+                p.sendMessage(Component.text("Siege Engine destroyed!", NamedTextColor.YELLOW));
 
             for (UUID eUuid : Ids) {
                 final Entity e = Bukkit.getEntity(eUuid);
@@ -135,7 +139,7 @@ public class PlayerHandler implements Listener {
                         SiegeEngines.activeSiegeEngines.remove(entity.getUniqueId());
                     }
                     SiegeEngines.siegeEngineEntitiesPerPlayer.get(uuid).remove(entity);
-                    player.sendMessage("§eReleased this Siege Engine!");
+                    player.sendMessage(Component.text("Released this Siege Engine!", NamedTextColor.YELLOW));
                     return;
                 }
             }
@@ -143,7 +147,7 @@ public class PlayerHandler implements Listener {
                 SiegeEnginesLogger.debug("LEFT-OVER ENGINES? " + SiegeEngines.siegeEngineEntitiesPerPlayer.get(uuid).toString());
             }
             list.clear();
-            player.sendMessage("§eReleased all Siege Engines!");
+            player.sendMessage(Component.text("Released all Siege Engines!", NamedTextColor.YELLOW));
             SiegeEngines.siegeEngineEntitiesPerPlayer.put(uuid, list);
             SiegeEngines.siegeEngineEntitiesPerPlayer.get(uuid).clear();
             SiegeEngines.siegeEngineEntitiesPerPlayer.remove(uuid);

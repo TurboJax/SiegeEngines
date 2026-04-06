@@ -168,9 +168,9 @@ SiegeEngines:
       - BreachShot
       - FireShot
       - RepeatingShot
-    ItemName: "&e&lTrebuchet"
+    ItemName: "<yellow><b>Trebuchet"
     Lore:
-      - "&ePlace as a block to spawn a Trebuchet"
+      - "<yellow>Place as a block to spawn a Trebuchet"
     CanMount: false
   Ballista:
     Health: 5
@@ -184,9 +184,9 @@ SiegeEngines:
       - DragonsBreath
       - FireworkShot
       - SplashPotionProjectile
-    ItemName: "&e&lBallista"
+    ItemName: "<yellow><b>Ballista"
     Lore:
-      - "&ePlace as a block to spawn a Ballista"
+      - "<yellow>Place as a block to spawn a Ballista"
     CanMount: false
   SwivelCannon:
     Health: 15
@@ -200,9 +200,9 @@ SiegeEngines:
       - ScatterShot
       - FireShot
       - FireworkShot
-    ItemName: "&e&lSwivel Cannon"
+    ItemName: "<yellow><b>Swivel Cannon"
     Lore:
-      - "&ePlace as a block to spawn a Swivel Cannon"
+      - "<yellow>Place as a block to spawn a Swivel Cannon"
     CanMount: false
   BreachCannon:
     Health: 25
@@ -218,7 +218,7 @@ SiegeEngines:
       - ScatterShot
       - DragonsBreath
       - FireworkShot
-    ItemName: "&e&lBreach Cannon"
+    ItemName: "<yellow><b>Breach Cannon"
     Lore:
-      - "&ePlace as a block to spawn a Breach Cannon"
+      - "<yellow>Place as a block to spawn a Breach Cannon"
     CanMount: false
