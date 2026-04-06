@@ -54,7 +54,6 @@ public class SiegeEngine implements Cloneable {
     private boolean rotateStandHead;
     private boolean hasFired; // Internal
     private boolean hasReloaded; // Internal
-    private int taskNumber;
     private List<Integer> firingModelNumbers;
     private int readyModelNumber;
     private int nextModelNumber; // Internal
@@ -285,28 +284,31 @@ public class SiegeEngine implements Cloneable {
         if (!(getEntity() instanceof LivingEntity siegeEntity) || siegeEntity.isDead()) return;
 
         if (isCycleThroughModelsWhileFiring()) {
-
-            this.taskNumber = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SiegeEngines.getInstance(), () -> {
+            if (getMillisecondsBetweenFiringStages() == 0) return;
+            
+            siegeEntity.getScheduler().runAtFixedRate(SiegeEngines.getInstance(), task -> {
                 if (!(getEntity() instanceof LivingEntity livingEntity) || livingEntity.isDead()) {
-                    Bukkit.getServer().getScheduler().cancelTask(taskNumber);
+                    task.cancel();
                     return;
                 }
 
                 if (hasFired) {
-                    Bukkit.getServer().getScheduler().cancelTask(taskNumber);
-                    taskNumber = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SiegeEngines.getInstance(), () -> {
+                    task.cancel();
+                    if (getMillisecondsBetweenReloadingStages() == 0) return;
+
+                    siegeEntity.getScheduler().runAtFixedRate(SiegeEngines.getInstance(), task2 -> {
                         if (livingEntity.isDead()) {
-                            Bukkit.getServer().getScheduler().cancelTask(taskNumber);
+                            task2.cancel();
                             return;
                         }
 
                         if (hasReloaded) {
-                            Bukkit.getServer().getScheduler().cancelTask(taskNumber);
+                            task2.cancel();
                             hasReloaded = false;
                             hasFired = false;
                             nextModelNumber = 0;
                             SiegeEnginesUtil.UpdateEntityIdModel(getEntity(), getReadyModelNumber(), getWorldName());
-                            taskNumber = 0;
+                            task2 = null;
                         } else {
                             //firing stages
                             if (isSetModelNumberWhenFullyLoaded()) {
@@ -322,8 +324,7 @@ public class SiegeEngine implements Cloneable {
                                 }
                             }
                         }
-                    }, 0, getMillisecondsBetweenReloadingStages());
-
+                    }, null, 1, getMillisecondsBetweenReloadingStages());
                 } else {
                     //firing stages
                     if (nextModelNumber < getFiringModelNumbers().size()) {
@@ -350,11 +351,11 @@ public class SiegeEngine implements Cloneable {
 
                     }
                 }
-            }, 0, getMillisecondsBetweenFiringStages());
+            }, null, 1, getMillisecondsBetweenFiringStages());
         } else {
-            taskNumber = Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(SiegeEngines.getInstance(), () -> {
+            siegeEntity.getScheduler().runDelayed(SiegeEngines.getInstance(), task -> {
                 if (!(getEntity() instanceof LivingEntity livingEntity) || livingEntity.isDead()) {
-                    Bukkit.getServer().getScheduler().cancelTask(taskNumber);
+                    task.cancel();
                     return;
                 }
 
@@ -374,7 +375,7 @@ public class SiegeEngine implements Cloneable {
                 }
                 if (projType == null) return;
                 projType.Shoot(player, getEntity(), this.GetFireLocation(livingEntity), loadedFuel * getVelocityPerFuel());
-            }, (long) delay);
+            }, null, (long) delay);
 
         }
     }
