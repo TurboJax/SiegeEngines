@@ -282,6 +282,8 @@ public class SiegeEngine implements Cloneable {
         if (living.isDead()) {
             return;
         }
+        if (!(getEntity() instanceof LivingEntity siegeEntity) || siegeEntity.isDead()) return;
+
         if (isCycleThroughModelsWhileFiring()) {
 
             this.taskNumber = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SiegeEngines.getInstance(), () -> {
