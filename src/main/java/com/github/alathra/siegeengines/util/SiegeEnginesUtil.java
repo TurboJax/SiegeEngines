@@ -68,7 +68,9 @@ public class SiegeEnginesUtil {
 
     public static SiegeEngine createCloneFromCustomModelData(Integer ModelId) {
         try {
-            return SiegeEngines.definedSiegeEngines.get(ModelId).clone();
+            SiegeEngine engine = SiegeEngines.definedSiegeEngines.get(ModelId);
+            if (engine == null) return null;
+            return engine.clone();
         } catch (CloneNotSupportedException e) {
 
         }
